@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 100%;
+}
+
+.subcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text {
+}

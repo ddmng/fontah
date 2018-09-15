@@ -1,0 +1,5 @@
+dist/
+node_modules/
+.sonarlint/
+.cache/
+./local_modules
