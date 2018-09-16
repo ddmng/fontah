@@ -23,12 +23,20 @@ button {
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
+    width: 100%;
 }
 
 .text {
     border: 0px;
     text-align: center;
+    animation: textchange 200ms;
 }
+
+@keyframes textchange {
+    0% {font-size: 5em; opacity:1;}
+    100% {font-size:3em;opacity:1;}
+}
+
 
 .controls {
     position: absolute;

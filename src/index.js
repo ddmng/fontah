@@ -9,12 +9,9 @@ import {
 } from './actions'
 import '/styles/style'
 
-
-console.log("Started")
-
-const initialState = {
+const initialState = LoadGoogleFontsList({
     status: "idle",
-    text: "Sample text",
+    text: "Sample text, change me!",
     textStyle: {
         "font-size": "3em",
         "font-family": "Roboto",
@@ -27,10 +24,10 @@ const initialState = {
         color: "black"
     },
     error: "",
-}
+})
 
 app({
-    init: LoadGoogleFontsList(initialState),
+    init: (initialState),
     view: state =>
         <div class="container" style={state.containerStyle}>
             <div class="controls">
@@ -38,6 +35,7 @@ app({
                 <button onClick={[ChangeBackground, { color: "gray" }]}>Background color</button>
                 <button onClick={[ChangeSize, { size: "4em" }]}>Size</button>
                 <button onClick={RandomFont} disabled={state.status != "idle"}>Change font!</button>
+                <button onClick={initialState}>Reset</button>
             </div>
             <div class="subcontainer">
                 <input class="text" value={state.text} style={state.textStyle} onInput={UpdateText}></input>
