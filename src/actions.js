@@ -45,7 +45,7 @@ export const FontLoadError = (state, error) => [{
     ...state,
     status: "error_loading_font",
     error: error.message
-}, Time({after: 2000, action: {...state, status: "idle"}})
+}, Time({after: 2000, action: {...state, status: "idle", error: ""}})
 ]
 
 export const LoadFont = (state, index) => [{
@@ -87,4 +87,12 @@ export const RandomFont = (state) => [{
 export const UpdateText = (state, {target}) => ({
     ...state,
     text: target.value
+})
+
+export const ChangeSize = (state, {size}) => ({
+    ...state,
+    textStyle: {
+        ...state.textStyle,
+        "font-size": size,
+    },
 })
