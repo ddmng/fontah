@@ -1,3 +1,6 @@
 [submodule "local_modules/hyperapp"]
 	path = local_modules/hyperapp
 	url = https://github.com/jorgebucaran/hyperapp.git
+[submodule "local_modules/hyperapp-fx"]
+	path = local_modules/hyperapp-fx
+	url = https://github.com/okwolf/hyperapp-fx.git
