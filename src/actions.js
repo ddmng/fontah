@@ -1,4 +1,9 @@
+import {
+    Http
+} from '../local_modules/hyperapp-fx/src/index'
 import * as fx from './fx/fonts'
+
+const googleFontsUrl = "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyBpJbJtNqviQ-PDH2a_mmvvKIeFY6jT2vk"
 
 export const ChangeColor = (state, {
     color
@@ -20,7 +25,9 @@ export const NextFont = (state, {
     }
 })
 
-export const ChangeBackground = (state, {color}) => ({
+export const ChangeBackground = (state, {
+    color
+}) => ({
     ...state,
     containerStyle: {
         ...state.containerStyle,
@@ -37,9 +44,32 @@ export const FontLoaded = (state) => ({
     status: "font_loaded"
 })
 
-export const LoadFont = (state, {font}) => [{
+export const FontLoadError = (state) => ({
+    ...state,
+    status: "error_loading_font"
+})
+
+export const LoadFont = (state, {
+    font
+}) => [{
         ...state,
         status: "loading_font"
     },
-    fx.LoadFontEffect(FontLoaded, font)
+    fx.LoadFontEffect(FontLoaded, FontLoadError, font)
+]
+
+export const GoogleFontsListLoaded = (state, list) => ({
+    ...state,
+    status: "loaded_google_fonts_list",
+    list
+})
+
+export const LoadGoogleFontsList = (state) => [{
+        ...state,
+        status: "loading_google_fonts_list"
+    },
+    Http({
+        url: googleFontsUrl,
+        action: GoogleFontsListLoaded,
+    })
 ]

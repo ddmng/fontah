@@ -1,5 +1,5 @@
 import { h, app } from '../local_modules/hyperapp/src'
-import { ChangeColor, ChangeBackground, NextFont, LoadFont } from './actions'
+import { ChangeColor, ChangeBackground, NextFont, LoadFont, LoadGoogleFontsList } from './actions'
 import '/styles/style'
 
 
@@ -23,6 +23,7 @@ app({
                 <button onClick={[NextFont, { font: "BioRhyme Expanded" }]}>Next font</button>
                 <button onClick={[ChangeColor, { color: "blue" }]}>Foreground color</button>
                 <button onClick={[ChangeBackground, { color: "gray" }]}>Background color</button>
+                <button onClick={LoadGoogleFontsList}>Load google fonts list</button>
             </div>
         </div>
     ,
