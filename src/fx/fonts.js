@@ -1,6 +1,5 @@
 
 const loadFont = ({action, error, font, index}, dispatch) => {
-    console.log("fx", action, error, font, index)
     var fontFace = new FontFace(
         font.family,
         `url(${font.files.regular})`, {
@@ -9,9 +8,9 @@ const loadFont = ({action, error, font, index}, dispatch) => {
         });
 
     fontFace.load().then(function (loaded_face) {
-        console.log(loaded_face)
+        // console.log(loaded_face)
         document.fonts.add(loaded_face);
-        document.body.style.fontFamily = font.family;
+        //document.body.style.fontFamily = font.family;
         dispatch(action, loaded_face)
     }).catch(function (msg) {
         console.log(msg)

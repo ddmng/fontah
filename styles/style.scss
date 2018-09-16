@@ -15,3 +15,23 @@
 .text {
     border: 0px;
 }
+
+.controls {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+button {
+    margin: 4px;
+    border: 1px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+}
+
+.fontdata {
+    position: absolute;
+    bottom: 30px;
+    left: 10px;
+}

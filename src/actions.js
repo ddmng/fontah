@@ -84,3 +84,8 @@ export const RandomFont = (state) => [{
     min: 0,
     max: state.googleFontsList.items.length - 1
 })]
+
+export const UpdateText = (state, {target}) => ({
+    ...state,
+    text: target.value
+})
