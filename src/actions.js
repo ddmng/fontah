@@ -1,5 +1,6 @@
 import {
-    Http
+    Http,
+    Random
 } from '../local_modules/hyperapp-fx/src/index'
 import * as fx from './fx/fonts'
 
@@ -15,13 +16,11 @@ export const ChangeColor = (state, {
     }
 })
 
-export const NextFont = (state, {
-    font
-}) => ({
+export const SetFont = (state) => ({
     ...state,
     textStyle: {
         ...state.textStyle,
-        "font-family": font
+        "font-family": state.currentFont.family
     }
 })
 
@@ -39,9 +38,10 @@ export const ChangeBackground = (state, {
     }
 })
 
-export const FontLoaded = (state) => ({
+export const FontLoaded = (state, font) => SetFont({
     ...state,
-    status: "font_loaded"
+    status: "font_loaded",
+    currentFont: font
 })
 
 export const FontLoadError = (state) => ({
@@ -49,13 +49,15 @@ export const FontLoadError = (state) => ({
     status: "error_loading_font"
 })
 
-export const LoadFont = (state, {
-    font
-}) => [{
+export const LoadFont = (state, index) => [{
         ...state,
         status: "loading_font"
     },
-    fx.LoadFontEffect(FontLoaded, FontLoadError, font)
+    fx.LoadFontEffect({
+        action: FontLoaded, 
+        error: FontLoadError, 
+        font: state.googleFontsList.items[Math.trunc(index)],
+    })
 ]
 
 export const GoogleFontsListLoaded = (state, googleFontsList) => ({
@@ -73,3 +75,12 @@ export const LoadGoogleFontsList = (state) => [{
         action: GoogleFontsListLoaded,
     })
 ]
+
+export const RandomFont = (state) => [{ 
+    ...state,
+    status: "changing_font"
+}, Random({
+    action: LoadFont,
+    min: 0,
+    max: state.googleFontsList.items.length - 1
+})]

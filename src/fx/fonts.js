@@ -1,8 +1,9 @@
 
-const loadFont = ({action, error, font, url}, dispatch) => {
+const loadFont = ({action, error, font, index}, dispatch) => {
+    console.log("fx", action, error, font, index)
     var fontFace = new FontFace(
-        'BioRhyme Expanded',
-        'url(http://fonts.gstatic.com/s/biorhymeexpanded/v3/i7dQIE1zZzytGswgU577CDY9LjbffySU.ttf)', {
+        font.family,
+        `url(${font.files.regular})`, {
             weight: 'normal',
             style: 'normal'
         });
@@ -10,20 +11,18 @@ const loadFont = ({action, error, font, url}, dispatch) => {
     fontFace.load().then(function (loaded_face) {
         console.log(loaded_face)
         document.fonts.add(loaded_face);
-        document.body.style.fontFamily = 'BioRhyme Expanded';
-        dispatch(action)
+        document.body.style.fontFamily = font.family;
+        dispatch(action, loaded_face)
     }).catch(function (msg) {
         console.log(msg)
         dispatch(error, msg)
     });
 }
 
-export const LoadFontEffect = (action, ...props) => ({
+export const LoadFontEffect = (props) => ({
     effect: loadFont,
-    action,
-    props
+    action: props.action,
+    error: props.error,
+    font: props.font,
+    index: props.index
 })
-
-const loadFontsList = ({action}, dispatch) => {
-
-}
