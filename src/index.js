@@ -24,6 +24,7 @@ const initialState = LoadGoogleFontsList({
         color: "black"
     },
     error: "",
+    lastViewed: []
 })
 
 app({

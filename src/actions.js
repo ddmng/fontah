@@ -54,7 +54,11 @@ export const FontLoadError = (state, error) => [{
 
 export const LoadFont = (state, index) => [{
         ...state,
-        status: "loading_font"
+        status: "loading_font",
+        lastViewed: [
+            ...state.lastViewed,
+            Math.trunc(index)
+        ]
     },
     fx.LoadFontEffect({
         action: FontLoaded, 
