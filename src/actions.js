@@ -119,6 +119,6 @@ export const RandomSize = (state) => [{
     status: "changing_size"
 }, Random({
     action: ChangeSize,
-    min: 1,
+    min: 6,
     max: 80
 })]
