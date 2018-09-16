@@ -1,11 +1,5 @@
 import * as fx from './fx/fonts'
 
-const makeEffect = (effect, action, ...props) => ({
-    effect,
-    action,
-    props
-})
-
 export const ChangeColor = (state, {
     color
 }) => ({
@@ -26,9 +20,7 @@ export const NextFont = (state, {
     }
 })
 
-export const ChangeBackground = (state, {
-    color
-}) => ({
+export const ChangeBackground = (state, {color}) => ({
     ...state,
     containerStyle: {
         ...state.containerStyle,
@@ -45,11 +37,9 @@ export const FontLoaded = (state) => ({
     status: "font_loaded"
 })
 
-export const LoadFont = (state, {
-    font
-}) => [{
+export const LoadFont = (state, {font}) => [{
         ...state,
         status: "loading_font"
     },
-    makeEffect(fx.loadFont, FontLoaded, font)
+    fx.LoadFontEffect(FontLoaded, font)
 ]
