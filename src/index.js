@@ -56,7 +56,7 @@ app({
                     bg-color #{state.containerStyle["background-color"]}
                 </p>
                 <div class="star">
-                    <a class="github-button" href="https://github.com/ddmng/homechooser" data-size="large" data-show-count="true" aria-label="Star ddmng/homechooser on GitHub">Star</a>            
+                    <a class="github-button" href="https://github.com/ddmng/fontah" data-size="large" data-show-count="true" aria-label="Star ddmng/homechooser on GitHub">Star</a>            
                 </div>
             </div>
         </div>
