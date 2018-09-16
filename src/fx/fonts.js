@@ -1,7 +1,10 @@
-
 const toHttps = (url) => url.replace("http", "https")
 
-const loadFont = ({action, error, font}, dispatch) => {
+const loadFont = ({
+    action,
+    error,
+    font
+}, dispatch) => {
     var fontFace = new FontFace(
         font.family,
         `url(${toHttps(font.files.regular)})`, {
@@ -24,6 +27,15 @@ export const LoadFontEffect = (props) => ({
     effect: loadFont,
     action: props.action,
     error: props.error,
-    font: props.font,
-    index: props.index
+    font: props.font
+})
+
+export const AllRandomEffect = (props) => ({
+    effect: (props, dispatch) => {
+        console.log("props", props)
+        props.actions.map(dispatch);
+        dispatch(props.action)
+    },
+    action: props.action,
+    actions: props.actions
 })

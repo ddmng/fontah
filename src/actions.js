@@ -122,3 +122,21 @@ export const RandomSize = (state) => [{
     min: 6,
     max: 100
 })]
+
+const Randomized = (state) => ({
+    ...state,
+    status: "idle"
+})
+
+export const AllRandom = (state) => [
+    {...state, status: "lucky_man"},
+    fx.AllRandomEffect({
+        action: Randomized,
+        actions: [
+            [RandomColor, {bgfg: 'bg'}],
+            [RandomColor, {bgfg: 'fg'}], 
+            RandomFont,
+            RandomSize
+        ]
+    })
+]
