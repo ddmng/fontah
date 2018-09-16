@@ -17,9 +17,15 @@ const initialState = {
     text: "Sample text",
     textStyle: {
         "font-size": "3em",
-        "font-family": "Roboto"
+        "font-family": "Roboto",
+        color: "black"
     },
-    containerStyle: "",
+    containerStyle: {
+        "background-color": "white"
+    },
+    footer: {
+        color: "black"
+    },
     error: "",
 }
 
@@ -37,8 +43,8 @@ app({
                 <input class="text" value={state.text} style={state.textStyle} onInput={UpdateText}></input>
                 <p>{state.error}</p>
             </div>
-            <div class="fontdata">
-                {state.textStyle["font-family"]}, {state.textStyle["font-size"]}
+            <div class="footer" style={state.footer}>
+                This is {state.textStyle["font-family"]}, {state.textStyle["font-size"]}
             </div>
         </div>
     ,

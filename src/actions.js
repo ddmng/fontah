@@ -14,6 +14,10 @@ export const ChangeColor = (state, {
     textStyle: {
         ...state.textStyle,
         color,
+    },
+    footer: {
+        ...state.footer,
+        color
     }
 })
 
