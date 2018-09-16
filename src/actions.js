@@ -58,10 +58,10 @@ export const LoadFont = (state, {
     fx.LoadFontEffect(FontLoaded, FontLoadError, font)
 ]
 
-export const GoogleFontsListLoaded = (state, list) => ({
+export const GoogleFontsListLoaded = (state, googleFontsList) => ({
     ...state,
     status: "loaded_google_fonts_list",
-    list
+    googleFontsList
 })
 
 export const LoadGoogleFontsList = (state) => [{
