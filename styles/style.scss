@@ -6,15 +6,21 @@ body {
 button {
     margin: 4px;
     border: 1px;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     overflow: hidden;
+    color: white;
+    border: 1px white;
+    background: black;
+    font-weight: 800;
+    font-size: 1.2em;
+    cursor: pointer;
 }
 
 .container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     height: 100%;
 }
 
@@ -24,11 +30,13 @@ button {
     justify-content: center;
     overflow: hidden;
     width: 100%;
+    flex-grow: 2;
 }
 
 .text {
     border: 0px;
     text-align: center;
+    flex-grow: 2;
     animation: textchange 200ms;
 }
 
@@ -39,17 +47,10 @@ button {
 
 
 .controls {
-    position: absolute;
-    top: 10px;
-    left: 0px;
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-
 .footer {
-    position: absolute;
-    bottom: 30px;
-    left: 10px;
 }

@@ -31,10 +31,10 @@ app({
     view: state =>
         <div class="container" style={state.containerStyle}>
             <div class="controls">
-                <button onClick={[ChangeColor, { color: "blue" }]}>Foreground color</button>
-                <button onClick={[ChangeBackground, { color: "gray" }]}>Background color</button>
+                <button onClick={[ChangeColor, { color: "blue" }]} title="Change foreground color">FG</button>
+                <button onClick={[ChangeBackground, { color: "gray" }]} title="Change background color">BG</button>
                 <button onClick={[ChangeSize, { size: "4em" }]}>Size</button>
-                <button onClick={RandomFont} disabled={state.status != "idle"}>Change font!</button>
+                <button onClick={RandomFont} disabled={state.status != "idle"} title="Change font">Font!</button>
                 <button onClick={initialState}>Reset</button>
             </div>
             <div class="subcontainer">
