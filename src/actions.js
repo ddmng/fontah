@@ -7,33 +7,32 @@ import * as fx from './fx/fonts'
 
 const googleFontsUrl = "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyBpJbJtNqviQ-PDH2a_mmvvKIeFY6jT2vk"
 
-export const ChangeColor = (state, {
-    color
-}) => ({
+const int2Color = (color) => `${Math.trunc(color).toString(16)}`
+
+export const ChangeFGColor = (state, color) => ({
     ...state,
     textStyle: {
         ...state.textStyle,
-        color,
+        color: int2Color(color),
     },
     footer: {
         ...state.footer,
-        color
-    }
+        color: int2Color(color),
+    },
+    status: 'idle'
 })
 
-
-export const ChangeBackground = (state, {
-    color
-}) => ({
+export const ChangeBGColor = (state, color) => ({
     ...state,
     containerStyle: {
         ...state.containerStyle,
-        "background-color": color
+        "background-color": int2Color(color)
     },
     textStyle: {
         ...state.textStyle,
-        "background-color": color
-    }
+        "background-color": int2Color(color),
+    },
+    status: 'idle'
 })
 
 export const FontLoaded = (state, font) => ({
@@ -92,15 +91,34 @@ export const RandomFont = (state) => [{
     max: state.googleFontsList.items.length - 1
 })]
 
+export const RandomColor = (state, {bgfg}) => [{ 
+    ...state,
+    status: "changing_color"
+}, Random({
+    action: bgfg=='bg'?ChangeBGColor:ChangeFGColor,
+    min: 0,
+    max: 0xff * 0xff * 0xff
+})]
+
 export const UpdateText = (state, {target}) => ({
     ...state,
     text: target.value
 })
 
-export const ChangeSize = (state, {size}) => ({
+export const ChangeSize = (state, size) => ({
     ...state,
     textStyle: {
         ...state.textStyle,
-        "font-size": size,
+        "font-size": `${Math.trunc(size)}px`,
     },
+    status: 'idle'
 })
+
+export const RandomSize = (state) => [{
+    ...state,
+    status: "changing_size"
+}, Random({
+    action: ChangeSize,
+    min: 1,
+    max: 80
+})]
