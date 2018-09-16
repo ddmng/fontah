@@ -1,6 +1,7 @@
 import {
     Http,
-    Random
+    Random,
+    Time
 } from '../local_modules/hyperapp-fx/src/index'
 import * as fx from './fx/fonts'
 
@@ -33,17 +34,19 @@ export const ChangeBackground = (state, {
 
 export const FontLoaded = (state, font) => ({
     ...state,
-    status: "font_loaded",
+    status: "idle",
     textStyle: {
         ...state.textStyle,
         "font-family": font.family
     }
 })
 
-export const FontLoadError = (state) => ({
+export const FontLoadError = (state, error) => [{
     ...state,
-    status: "error_loading_font"
-})
+    status: "error_loading_font",
+    error: error.message
+}, Time({after: 2000, action: {...state, status: "idle"}})
+]
 
 export const LoadFont = (state, index) => [{
         ...state,
@@ -58,7 +61,7 @@ export const LoadFont = (state, index) => [{
 
 export const GoogleFontsListLoaded = (state, googleFontsList) => ({
     ...state,
-    status: "loaded_google_fonts_list",
+    status: "idle",
     googleFontsList
 })
 
