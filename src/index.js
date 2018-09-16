@@ -6,7 +6,7 @@ import {
     RandomSize, 
     LoadGoogleFontsList
 } from './actions'
-import '/styles/style'
+import '../styles/style'
 
 const initialState = LoadGoogleFontsList({
     status: "idle",
