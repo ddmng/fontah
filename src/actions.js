@@ -16,13 +16,6 @@ export const ChangeColor = (state, {
     }
 })
 
-export const SetFont = (state) => ({
-    ...state,
-    textStyle: {
-        ...state.textStyle,
-        "font-family": state.currentFont.family
-    }
-})
 
 export const ChangeBackground = (state, {
     color
@@ -38,10 +31,13 @@ export const ChangeBackground = (state, {
     }
 })
 
-export const FontLoaded = (state, font) => SetFont({
+export const FontLoaded = (state, font) => ({
     ...state,
     status: "font_loaded",
-    currentFont: font
+    textStyle: {
+        ...state.textStyle,
+        "font-family": font.family
+    }
 })
 
 export const FontLoadError = (state) => ({

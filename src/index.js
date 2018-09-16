@@ -7,12 +7,12 @@ console.log("Started")
 
 const initialState = {
     status: "started",
-    text: "test text",
+    text: "Sample text",
     textStyle: {
-        "font-size": "3em"
+        "font-size": "3em",
+        "font-family": "Roboto"
     },
     containerStyle: "",
-    currentFont: ""
 }
 
 app({
@@ -28,7 +28,7 @@ app({
                 <input class="text" value={state.text} style={state.textStyle} onInput={UpdateText}></input>
             </div>
             <div class="fontdata">
-                {state.currentFont.family}
+                {state.textStyle["font-family"]}
             </div>
         </div>
     ,
