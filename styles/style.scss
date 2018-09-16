@@ -54,4 +54,11 @@ button {
 
 .footer {
     margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.star {
+    margin: 10px;
 }

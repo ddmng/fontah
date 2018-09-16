@@ -44,10 +44,15 @@ app({
                 <p>{state.error}</p>
             </div>
             <div class="footer" style={state.footer}>
-                This is {state.textStyle["font-family"]}, 
-                size    {state.textStyle["font-size"]}, 
-                fg-color #{state.textStyle.color},
-                bg-color #{state.containerStyle["background-color"]}
+                <p>
+                    This is {state.textStyle["font-family"]}, 
+                    size    {state.textStyle["font-size"]}, 
+                    fg-color #{state.textStyle.color},
+                    bg-color #{state.containerStyle["background-color"]}
+                </p>
+                <div class="star">
+                    <a class="github-button" href="https://github.com/ddmng/homechooser" data-size="large" data-show-count="true" aria-label="Star ddmng/homechooser on GitHub">Star</a>            
+                </div>
             </div>
         </div>
     ,
