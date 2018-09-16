@@ -1,8 +1,10 @@
 
-const loadFont = ({action, error, font, index}, dispatch) => {
+const toHttps = (url) => url.replace("http", "https")
+
+const loadFont = ({action, error, font}, dispatch) => {
     var fontFace = new FontFace(
         font.family,
-        `url(${font.files.regular})`, {
+        `url(${toHttps(font.files.regular)})`, {
             weight: 'normal',
             style: 'normal'
         });
