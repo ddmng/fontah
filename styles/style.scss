@@ -12,9 +12,19 @@ body {
     height: 100%;
 }
 
-button {
+.hsplit {
     margin: 4px;
-    border: 1px;
+    width: 56px;
+    height: 56px;
+    overflow: hidden;
+    color: white;
+    border: 2px solid white;
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    margin: 4px;
     width: 60px;
     height: 60px;
     overflow: hidden;
@@ -27,7 +37,13 @@ button {
     &:disabled {
         background: gray;
     }
+    &.half{
+        height: 30px;
+        margin: 0px;
+        border: 0px solid white;
+    }
 }
+
 @media only screen and (max-width: $mobile-width) {
     button {
         margin: 2px;
