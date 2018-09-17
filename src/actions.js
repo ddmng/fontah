@@ -1,11 +1,18 @@
 import {
     Http,
     Random,
-    Time
+    Time,
+    BatchFx
 } from '../local_modules/hyperapp-fx/src/index'
 import * as fx from './fx/fonts'
+import * as fonts from '../assets/googlewebfonts.js'
 
-const googleFontsUrl = "https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity&key=AIzaSyBpJbJtNqviQ-PDH2a_mmvvKIeFY6jT2vk"
+
+var mediaSize = 'large';
+
+const media = window.matchMedia("(max-width: 640px)")
+const mediaChanged = (m) => mediaSize = m.matches?'small':'large'
+media.addListener(mediaChanged) // Attach listener function on state changes
 
 const int2Color = (color) => `${Math.trunc(color).toString(16)}`
 
@@ -13,11 +20,11 @@ export const ChangeFGColor = (state, color) => ({
     ...state,
     textStyle: {
         ...state.textStyle,
-        color: int2Color(color),
+        color: `#${int2Color(color)}`,
     },
     footer: {
         ...state.footer,
-        color: int2Color(color),
+        color: `#${int2Color(color)}`,
     },
     status: 'idle'
 })
@@ -26,11 +33,11 @@ export const ChangeBGColor = (state, color) => ({
     ...state,
     containerStyle: {
         ...state.containerStyle,
-        "background-color": int2Color(color)
+        "background-color": `#${int2Color(color)}`
     },
     textStyle: {
         ...state.textStyle,
-        "background-color": int2Color(color),
+        "background-color": `#${int2Color(color)}`,
     },
     status: 'idle'
 })
@@ -82,23 +89,10 @@ export const LoadGoogleFontsList = (state) => [{
     })
 ]
 
-export const RandomFont = (state) => [{ 
+export const MergeGoogleFontsList = (state) => ({
     ...state,
-    status: "changing_font"
-}, Random({
-    action: LoadFont,
-    min: 0,
-    max: state.googleFontsList.items.length - 1
-})]
-
-export const RandomColor = (state, {bgfg}) => [{ 
-    ...state,
-    status: "changing_color"
-}, Random({
-    action: bgfg=='bg'?ChangeBGColor:ChangeFGColor,
-    min: 0,
-    max: 0xff * 0xff * 0xff
-})]
+    googleFontsList: fonts.googleFonts
+})
 
 export const UpdateText = (state, {target}) => ({
     ...state,
@@ -114,29 +108,53 @@ export const ChangeSize = (state, size) => ({
     status: 'idle'
 })
 
-export const RandomSize = (state) => [{
-    ...state,
-    status: "changing_size"
-}, Random({
-    action: ChangeSize,
-    min: 6,
-    max: 100
-})]
-
 const Randomized = (state) => ({
     ...state,
     status: "idle"
 })
 
+const randomColor = (bgfg) => Random({
+    action: bgfg=='bg'?ChangeBGColor:ChangeFGColor,
+    min: 0,
+    max: 0xff * 0xff * 0xff
+})
+
+const randomSize = () => Random({
+    action: ChangeSize,
+    min: 6,
+    max: mediaSize=='small'?50:100
+})
+
+const randomFont = (max) => Random({
+    action: LoadFont,
+    min: 0,
+    max
+})
+
+export const RandomFont = (state) => [{ 
+    ...state,
+    status: "changing_font"
+}, randomFont(state.googleFontsList.items.length - 1)]
+
+export const RandomColor = (state, {bgfg}) => [{ 
+    ...state,
+    status: "changing_color"
+}, randomColor(bgfg)]
+
+export const RandomSize = (state) => [{
+    ...state,
+    status: "changing_size"
+}, randomSize()]
+
 export const AllRandom = (state) => [
-    {...state, status: "lucky_man"},
-    fx.AllRandomEffect({
-        action: Randomized,
-        actions: [
-            [RandomColor, {bgfg: 'bg'}],
-            [RandomColor, {bgfg: 'fg'}], 
-            RandomFont,
-            RandomSize
-        ]
-    })
+    Randomized({
+        ...state, 
+        status: "lucky_man"
+    }),
+    BatchFx(
+        randomColor('bg'),
+        randomColor('fg'),
+        randomSize(),
+        randomFont()
+    )
 ]

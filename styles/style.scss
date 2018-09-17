@@ -1,7 +1,14 @@
 @import 'normalize';
 
+$mobile-width: 640px;
+
+html {
+    height: 100%;
+    width: 100%;
+}
 body {
     font-family: 'Headland One', serif;
+    height: 100%;
 }
 
 button {
@@ -16,6 +23,23 @@ button {
     font-weight: 800;
     font-size: 1.1em;
     cursor: pointer;
+    &:disabled {
+        background: gray;
+    }
+}
+@media only screen and (max-width: $mobile-width) {
+    button {
+        margin: 2px;
+        border: 1px;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9em;
+    }
+}
+
+
+#app {
+    height: 100%;
 }
 
 .container {
@@ -30,7 +54,6 @@ button {
     flex-direction: column;
     justify-content: center;
     overflow: hidden;
-    width: 100%;
     flex-grow: 2;
 }
 
@@ -41,6 +64,10 @@ button {
     animation: textchange 200ms;
 }
 
+@media only screen and (max-width: $mobile-width) {
+    overflow: scroll;
+}
+
 @keyframes textchange {
     0% {font-size: 100px; opacity:1;}
     100% {font-size: 50px;opacity:1;}
@@ -49,6 +76,14 @@ button {
 .title {
     font-size: 50px;
     margin: 10px;
+    text-shadow: 1px 1px gray;
+}
+
+@media only screen and (max-width: $mobile-width) {
+    .title {
+        font-size: 20px;
+        margin: 5px;
+    }
 }
 
 .header {
@@ -67,8 +102,19 @@ button {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    font-size: 1em;
 }
 
 .star {
     margin: 10px;
+}
+
+@media only screen and (max-width: $mobile-width) {
+    .footer {
+        margin: 5px;
+        font-size: .5em;
+    }
+    .star {
+        margin: 5px;
+    }
 }
