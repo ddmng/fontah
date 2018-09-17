@@ -15,7 +15,10 @@ Supported fonts sources:
 ### How it's made
 Made with [hyperapp](https://github.com/jorgebucaran/hyperapp), [V2 branch](https://github.com/jorgebucaran/hyperapp/pull/726).
 
-### What's next:
+### What's next
+
+Here are some idea on how to improve the project:
+
 * [ ] share your work and collaborate with a unique link
 * [ ] bookmarks, w/ local storage persistence
 * [ ] combinations history
