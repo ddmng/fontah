@@ -27,6 +27,7 @@ const initialState = MergeGoogleFontsList({
     lastViewed: []
 })
 
+// TODO: components
 app({
     init: (initialState),
     view: state =>
