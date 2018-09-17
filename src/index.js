@@ -3,7 +3,6 @@ import {
     UpdateText,
     RandomFont, 
     RandomColor,
-    RandomSize, 
     IncSize,
     DecSize,
     MergeGoogleFontsList,

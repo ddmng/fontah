@@ -19,6 +19,7 @@ Made with [hyperapp](https://github.com/jorgebucaran/hyperapp), [V2 branch](http
 
 Here are some idea on how to improve the project:
 
+* [x] increase/decrease font size instead of random size
 * [ ] share your work and collaborate with a unique link
 * [ ] bookmarks, w/ local storage persistence
 * [ ] combinations history

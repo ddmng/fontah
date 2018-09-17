@@ -1,7 +1,4 @@
-// Fonts effects
-
-// TODO: move this
-const toHttps = (url) => (""+url).indexOf('http:')>=0?(""+url).replace("http:", "https:"):url
+import {toHttps} from './utils'
 
 const loadFont = ({
     action,
