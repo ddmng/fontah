@@ -4,11 +4,13 @@ import {
     Time,
     BatchFx
 } from '../local_modules/hyperapp-fx/src/index'
-import * as fx from './fx/index'
+import * as fx from './fx/fonts'
+import * as firebase from './fx/firebase'
 import * as fonts from '../assets/googlewebfonts.js'
 import {
     int2Color
 } from './utils'
+import { fbConfig } from './fbconfig'
 
 // TODO: move this
 var mediaSize = 'large';
@@ -177,11 +179,41 @@ export const AllRandom = (state) => [
     )
 ]
 
-export const ToFirebase = (state) => [
-    {...state,
-        status: "saving_state"
-    },
-    fx.SaveData({
-        action: SetIdle,
-    })
-]
+export const ToFirebase = (state) => {
+    if (state.firebase == "connected") {
+        return [{ ...state,
+                status: "saving_state"
+            },
+            firebase.SaveData({
+                action: SetIdle,
+                data: {
+                    containerStyle: {
+                        ...state.containerStyle,
+                    },
+                    textStyle: {
+                        ...state.textStyle,
+                    }
+                },
+                collection: 'combinations',
+                key: "12345",
+                database: state.appname
+            })
+        ]
+    } else {
+        return [{
+                ...state,
+                status: "connecting"
+            },
+            firebase.Connect({
+                action: Connected,
+                config: fbConfig,
+                name: state.appname
+            })
+        ]
+    }
+}
+
+const Connected = (state) => SetIdle({
+    ...state,
+    firebase: "connected",
+})

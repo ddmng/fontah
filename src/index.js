@@ -10,6 +10,7 @@ import {
     ToFirebase
 } from './actions'
 import '../styles/style'
+import { Time } from '../local_modules/hyperapp-fx/src';
 
 const initialState = MergeGoogleFontsList({
     status: "idle",
@@ -26,7 +27,9 @@ const initialState = MergeGoogleFontsList({
         color: "black"
     },
     error: "",
-    lastViewed: []
+    lastViewed: [],
+    appname: 'fontah',
+    firestore: "not_connected"
 })
 
 // TODO: components
@@ -50,7 +53,6 @@ app({
                     <button class="btn" onClick={RandomFont} title="Random font" disabled={state.status != "idle"} title="Change font"><i class="fas fa-font"></i></button>
                     <button class="btn" onClick={AllRandom} title="I'm feeling lucky"><i class="fas fa-random"></i></button>
                     <button class="btn" onClick={initialState} title="Start from scratch"><i class="fas fa-undo"></i></button>
-                    <button class="btn" onClick={ToFirebase} title="Save state to firebase"><i class="fab fa-google"></i></button>
                 </div>
             </div>
             <div class="subcontainer">
@@ -71,5 +73,9 @@ app({
         </div>
     ,
     container: document.getElementById("app"),
-    subscriptions: (state) => console.log("STATE", state)
+    subscriptions: 
+        (state) => [ 
+            console.log("STATE", state), 
+            Time({every: 5000, action: ToFirebase}) 
+        ] 
 })
