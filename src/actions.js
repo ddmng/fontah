@@ -4,7 +4,7 @@ import {
     Time,
     BatchFx
 } from '../local_modules/hyperapp-fx/src/index'
-import * as fx from './fx/fonts'
+import * as fx from './fx/index'
 import * as fonts from '../assets/googlewebfonts.js'
 import {
     int2Color
@@ -123,7 +123,7 @@ export const ChangeSize = (state, size) => ({
     status: 'idle'
 })
 
-const Randomized = (state) => ({
+const SetIdle = (state) => ({
     ...state,
     status: "idle"
 })
@@ -165,7 +165,7 @@ export const RandomSize = (state) => [{
 
 // TODO: is this the best way? I'm losing intermediate state changes
 export const AllRandom = (state) => [
-    Randomized({
+    SetIdle({
         ...state,
         status: "lucky_man"
     }),
@@ -175,4 +175,13 @@ export const AllRandom = (state) => [
         // randomSize(),
         randomFont(state.googleFontsList.items.length - 1),
     )
+]
+
+export const ToFirebase = (state) => [
+    {...state,
+        status: "saving_state"
+    },
+    fx.SaveData({
+        action: SetIdle,
+    })
 ]

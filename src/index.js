@@ -6,7 +6,8 @@ import {
     IncSize,
     DecSize,
     MergeGoogleFontsList,
-    AllRandom
+    AllRandom,
+    ToFirebase
 } from './actions'
 import '../styles/style'
 
@@ -49,6 +50,7 @@ app({
                     <button class="btn" onClick={RandomFont} title="Random font" disabled={state.status != "idle"} title="Change font"><i class="fas fa-font"></i></button>
                     <button class="btn" onClick={AllRandom} title="I'm feeling lucky"><i class="fas fa-random"></i></button>
                     <button class="btn" onClick={initialState} title="Start from scratch"><i class="fas fa-undo"></i></button>
+                    <button class="btn" onClick={ToFirebase} title="Save state to firebase"><i class="fab fa-google"></i></button>
                 </div>
             </div>
             <div class="subcontainer">
