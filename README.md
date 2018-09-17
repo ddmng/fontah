@@ -18,3 +18,5 @@ What's next:
 * [ ] bookmarks, w/ local storage persistence
 * [ ] combinations history
 * [ ] copy css
+* [ ] mobile-friendly
+* [ ] use hyperapp subscriptions for media-change
