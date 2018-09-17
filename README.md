@@ -12,15 +12,16 @@ Supported fonts sources:
 * [ ] Typekit
 * [ ] other sources? Issue please!
 
-Made with [hyperapp](https://github.com/jorgebucaran/hyperapp).
+### How it's made
+Made with [hyperapp](https://github.com/jorgebucaran/hyperapp), [V2 branch](https://github.com/jorgebucaran/hyperapp/pull/726).
 
-What's next:
+### What's next:
 * [ ] share your work and collaborate with a unique link
 * [ ] bookmarks, w/ local storage persistence
 * [ ] combinations history
 * [ ] copy css
 * [ ] mobile-friendly
-* [ ] use hyperapp subscriptions for media-change
+* [ ] use [hyperapp subscriptions](https://github.com/jorgebucaran/hyperapp/issues/752) for media-change in JS
 
 ### How to run it locally
 Clone the repo:
