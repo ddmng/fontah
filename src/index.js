@@ -4,12 +4,12 @@ import {
     RandomFont, 
     RandomColor,
     RandomSize, 
-    LoadGoogleFontsList,
+    MergeGoogleFontsList,
     AllRandom
 } from './actions'
 import '../styles/style'
 
-const initialState = LoadGoogleFontsList({
+const initialState = MergeGoogleFontsList({
     status: "idle",
     text: "Sample text, change me!",
     textStyle: {
@@ -51,9 +51,9 @@ app({
             <div class="footer" style={state.footer}>
                 <p>
                     Font    "{state.textStyle["font-family"]}", 
-                    size    {state.textStyle["font-size"]}, 
-                    fg-color #{state.textStyle.color},
-                    bg-color #{state.containerStyle["background-color"]}
+                    size     {state.textStyle["font-size"]}, 
+                    fg-color {state.textStyle.color},
+                    bg-color {state.containerStyle["background-color"]}
                 </p>
                 <div class="star">
                     <a class="github-button" href="https://github.com/ddmng/fontah" data-size="large" data-show-count="true" aria-label="Star ddmng/fontah on GitHub">Star</a>            
@@ -62,5 +62,5 @@ app({
         </div>
     ,
     container: document.getElementById("app"),
-    subscriptions: (state) => console.log("STATE", state),
+    subscriptions: (state) => console.log("STATE", state)
 })

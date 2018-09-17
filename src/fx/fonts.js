@@ -1,11 +1,11 @@
-const toHttps = (url) => url.replace("http", "https")
+const toHttps = (url) => (""+url).indexOf('http:')>=0?(""+url).replace("http:", "https:"):url
 
 const loadFont = ({
     action,
     error,
     font
 }, dispatch) => {
-    var fontFace = new FontFace(
+    const fontFace = new FontFace(
         font.family,
         `url(${toHttps(font.files.regular)})`, {
             weight: 'normal',
@@ -13,9 +13,7 @@ const loadFont = ({
         });
 
     fontFace.load().then(function (loaded_face) {
-        // console.log(loaded_face)
         document.fonts.add(loaded_face);
-        //document.body.style.fontFamily = font.family;
         dispatch(action, loaded_face)
     }).catch(function (msg) {
         console.log(msg)
@@ -28,14 +26,4 @@ export const LoadFontEffect = (props) => ({
     action: props.action,
     error: props.error,
     font: props.font
-})
-
-export const AllRandomEffect = (props) => ({
-    effect: (props, dispatch) => {
-        console.log("props", props)
-        props.actions.map(dispatch);
-        dispatch(props.action)
-    },
-    action: props.action,
-    actions: props.actions
 })
