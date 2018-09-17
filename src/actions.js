@@ -155,6 +155,6 @@ export const AllRandom = (state) => [
         randomColor('bg'),
         randomColor('fg'),
         randomSize(),
-        randomFont()
+        randomFont(state.googleFontsList.items.length - 1),
     )
 ]
