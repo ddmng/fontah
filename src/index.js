@@ -37,12 +37,14 @@ app({
                     font-ah!
                 </div>
                 <div class="controls">
-                    <button onClick={[RandomColor, {bgfg: 'fg'}]} title="Random foreground color"><i class="fas fa-paint-brush"></i></button>
-                    <button onClick={[RandomColor, {bgfg: 'bg'}]} title="Random background color"><i class="fas fa-fill"></i></button>
-                    <button onClick={RandomSize} title="Random font size"><i class="fas fa-text-height"></i></button>
-                    <button onClick={RandomFont} title="Random font" disabled={state.status != "idle"} title="Change font"><i class="fas fa-font"></i></button>
-                    <button onClick={AllRandom} title="I'm feeling lucky"><i class="fas fa-random"></i></button>
-                    <button onClick={initialState} title="Start from scratch"><i class="fas fa-undo"></i></button>
+                    <div class="hsplit">
+                        <button class="btn half" onClick={[RandomColor, {bgfg: 'fg'}]} title="Random foreground color"><i class="fas fa-paint-brush"></i></button>
+                        <button class="btn half" onClick={[RandomColor, {bgfg: 'bg'}]} title="Random background color"><i class="fas fa-fill"></i></button>
+                    </div>
+                    <button class="btn" onClick={RandomSize} title="Random font size"><i class="fas fa-text-height"></i></button>
+                    <button class="btn" onClick={RandomFont} title="Random font" disabled={state.status != "idle"} title="Change font"><i class="fas fa-font"></i></button>
+                    <button class="btn" onClick={AllRandom} title="I'm feeling lucky"><i class="fas fa-random"></i></button>
+                    <button class="btn" onClick={initialState} title="Start from scratch"><i class="fas fa-undo"></i></button>
                 </div>
             </div>
             <div class="subcontainer">
