@@ -7,9 +7,8 @@ import {
 import * as fx from './fx/fonts'
 import * as fonts from '../assets/googlewebfonts.js'
 
-
+// TODO: move this
 var mediaSize = 'large';
-
 const media = window.matchMedia("(max-width: 640px)")
 const mediaChanged = (m) => mediaSize = m.matches?'small':'large'
 media.addListener(mediaChanged) // Attach listener function on state changes
@@ -146,6 +145,7 @@ export const RandomSize = (state) => [{
     status: "changing_size"
 }, randomSize()]
 
+// TODO: is this the best way? I'm losing intermediate state changes
 export const AllRandom = (state) => [
     Randomized({
         ...state, 
