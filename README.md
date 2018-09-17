@@ -8,7 +8,7 @@ Just:
 * copy font and color params from the footer
 
 Supported fonts sources:
-* [x] Google Fonts
+* [x] Google Fonts (downloaded locally to avoid sharing API-KEY)
 * [ ] Typekit
 * [ ] other sources? Issue please!
 
