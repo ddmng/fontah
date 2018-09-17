@@ -98,6 +98,13 @@ export const UpdateText = (state, {target}) => ({
     text: target.value
 })
 
+const addPixels = (px, amount) => (
+    parseInt(px.replace("px", ""), 10) + amount
+)
+
+export const IncSize = (state) => ChangeSize(state, addPixels(state.textStyle["font-size"], 1) )
+export const DecSize = (state) => ChangeSize(state, addPixels(state.textStyle["font-size"], -1))
+
 export const ChangeSize = (state, size) => ({
     ...state,
     textStyle: {
@@ -154,7 +161,7 @@ export const AllRandom = (state) => [
     BatchFx(
         randomColor('bg'),
         randomColor('fg'),
-        randomSize(),
+        // randomSize(),
         randomFont(state.googleFontsList.items.length - 1),
     )
 ]
