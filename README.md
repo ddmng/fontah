@@ -21,3 +21,20 @@ What's next:
 * [ ] copy css
 * [ ] mobile-friendly
 * [ ] use hyperapp subscriptions for media-change
+
+### How to run it locally
+Clone the repo:
+```sh
+git clone https://github.com/ddmng/fontah.git
+cd fontah/
+```
+
+Build it:
+```sh
+npm run build
+```
+
+Then serve it:
+```sh
+npm start
+```
