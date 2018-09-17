@@ -5,6 +5,7 @@ Quickly prototype a text using random settings. Use it to find a font/color/size
 Just:
 * enter the text
 * use the buttons in the header to change colors, size and typeface
+* copy font and color params from the footer
 
 
 Supported fonts sources:
