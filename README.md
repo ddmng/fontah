@@ -9,10 +9,12 @@ Just:
 
 Supported fonts sources:
 * [x] Google Fonts
+* [ ] Typekit
 * [ ] other sources? Issue please!
 
 
 What's next:
 * [ ] share your work and collaborate with a unique link
-* [ ] bookmark combinations
-* [ ] history
+* [ ] bookmarks, w/ local storage persistence
+* [ ] combinations history
+* [ ] copy css
