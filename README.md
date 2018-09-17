@@ -7,12 +7,12 @@ Just:
 * use the buttons in the header to change colors, size and typeface
 * copy font and color params from the footer
 
-
 Supported fonts sources:
 * [x] Google Fonts
 * [ ] Typekit
 * [ ] other sources? Issue please!
 
+Made with [hyperapp](https://github.com/jorgebucaran/hyperapp).
 
 What's next:
 * [ ] share your work and collaborate with a unique link
