@@ -16,6 +16,7 @@ import {
 } from './fx/effects'
 import '../styles/style'
 import { Time } from '../local_modules/hyperapp-fx/src';
+import {isIn} from './utils'
 
 const blankState = {
     status: "idle",
@@ -40,6 +41,7 @@ const blankState = {
 
 const initialState = MergeGoogleFontsList(blankState)
 
+
 // TODO: components
 app({
     init: (initialState),
@@ -59,7 +61,7 @@ app({
                         <button class="btn half" onClick={IncSize} title="Larger size"><i class="fas fa-plus"></i></button>
                         <button class="btn half" onClick={DecSize} title="Smaller size"><i class="fas fa-minus"></i></button>
                     </div>
-                    <button class="btn" onClick={RandomFont} title="Random font" disabled={ 0 > ["idle", "changed"].indexOf(state.status) } title="Change font"><i class="fas fa-font"></i></button>
+                    <button class="btn" onClick={RandomFont} title="Random font" disabled={ !isIn(state.status, ["idle", "changed"]) } title="Change font"><i class="fas fa-font"></i></button>
                     <button class="btn" onClick={AllRandom} title="I'm feeling lucky" disabled={ 0 > ["idle", "changed"].indexOf(state.status) }><i class="fas fa-random"></i></button>
                     <button class="btn" onClick={Connected(initialState)} title="Start from scratch"><i class="fas fa-undo"></i></button>
                 </div>
