@@ -12,7 +12,7 @@ const saveState = (props, dispatch) => {
         data: props.data
     }).then(() => {
         console.log("State saved")
-        dispatch(props.action)
+        dispatch(props.action, {savedAt: props.savedAt})
     }).catch(error => {
         console.error("Error updating data", error)
         dispatch(props.action, error)
@@ -25,7 +25,8 @@ export const SaveData = (props) => ({
     data: props.data,
     key: props.key,
     collection: props.collection,
-    database: props.database
+    database: props.database,
+    savedAt: props.savedAt
 })
 
 

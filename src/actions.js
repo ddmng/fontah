@@ -105,6 +105,11 @@ export const SetUniqId = (state, uniqid) => SetChanged({
     uniqid
 })
 
+const StateSaved = (state, {savedAt}) => SetIdle({
+    ...state,
+    savedAt
+})
+
 
 // ----------------------------------------------------
 // Actions w/ side effects
@@ -199,15 +204,17 @@ export const AllRandom = (state) => [
 ]
 
 export const ToFirebase = (state) => {
+    const savedAt = new Date();
+
     if (state.firebase == "connected") {
         if (state.status == "changed") {
             return [{ ...state,
                     status: "saving_state"
                 },
                 firebase.SaveData({
-                    action: SetIdle,
+                    action: StateSaved,
                     data: {
-                        savedAt: new Date(),
+                        savedAt: savedAt,
                         fontIdex: state.fontIndex,
                         containerStyle: {
                             ...state.containerStyle,
@@ -218,7 +225,8 @@ export const ToFirebase = (state) => {
                     },
                     collection: 'combinations',
                     key: state.uniqid,
-                    database: state.appname
+                    database: state.appname,
+                    savedAt
                 })
             ]
         } else {
