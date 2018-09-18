@@ -2,23 +2,22 @@ import {
     Http,
     Random,
     Time,
-    BatchFx
+    BatchFx,
 } from '../local_modules/hyperapp-fx/src/index'
-import * as fx from './fx/fonts'
+import * as fx from './fx/effects'
 import * as firebase from './fx/firebase'
 import * as fonts from '../assets/googlewebfonts.js'
 import {
     int2Color
 } from './utils'
-import { fbConfig } from './fbconfig'
+import {
+    fbConfig
+} from './fbconfig'
 
-// TODO: move this
-var mediaSize = 'large';
-const media = window.matchMedia("(max-width: 640px)")
-const mediaChanged = (m) => mediaSize = m.matches ? 'small' : 'large'
-media.addListener(mediaChanged) // Attach listener function on state changes
-
-export const ChangeFGColor = (state, color) => ({
+// ----------------------------------------------------
+// Pure actions
+// ----------------------------------------------------
+export const ChangeFGColor = (state, color) => SetChanged({
     ...state,
     textStyle: {
         ...state.textStyle,
@@ -28,10 +27,9 @@ export const ChangeFGColor = (state, color) => ({
         ...state.footer,
         color: `#${int2Color(color)}`,
     },
-    status: 'idle'
 })
 
-export const ChangeBGColor = (state, color) => ({
+export const ChangeBGColor = (state, color) => SetChanged({
     ...state,
     containerStyle: {
         ...state.containerStyle,
@@ -41,28 +39,79 @@ export const ChangeBGColor = (state, color) => ({
         ...state.textStyle,
         "background-color": `#${int2Color(color)}`,
     },
-    status: 'idle'
 })
 
-export const FontLoaded = (state, font) => ({
+export const FontLoaded = (state, font) => SetChanged({
     ...state,
-    status: "idle",
     textStyle: {
         ...state.textStyle,
         "font-family": font.family
     }
 })
 
+export const GoogleFontsListLoaded = (state, googleFontsList) => SetChanged({
+    ...state,
+    googleFontsList
+})
+
+export const MergeGoogleFontsList = (state) => SetChanged({
+    ...state,
+    googleFontsList: fonts.googleFonts
+})
+
+export const UpdateText = (state, {
+    target
+}) => ({
+    ...state,
+    text: target.value
+})
+
+export const IncSize = (state) => ChangeSize(state, addPixels(state.textStyle["font-size"], 1))
+
+export const DecSize = (state) => ChangeSize(state, addPixels(state.textStyle["font-size"], -1))
+
+export const ChangeSize = (state, size) => SetChanged({
+    ...state,
+    textStyle: {
+        ...state.textStyle,
+        "font-size": `${Math.trunc(size)}px`,
+    },
+    status: 'idle'
+})
+
+const SetChanged = (state) => ({
+    ...state,
+    status: "changed",
+    error: "",
+})
+
+const SetIdle = (state) => ({
+    ...state,
+    status: "idle",
+    error: "",
+})
+
+export const Connected = (state) => SetChanged({
+    ...state,
+    firebase: "connected",
+})
+
+export const SetUniqId = (state, uniqid) => SetChanged({
+    ...state,
+    uniqid
+})
+
+
+// ----------------------------------------------------
+// Actions w/ side effects
+// ----------------------------------------------------
 export const FontLoadError = (state, error) => [{
     ...state,
     status: "error_loading_font",
     error: error.message
 }, Time({
     after: 2000,
-    action: { ...state,
-        status: "idle",
-        error: ""
-    }
+    action: SetChanged
 })]
 
 export const LoadFont = (state, index) => [{
@@ -80,12 +129,6 @@ export const LoadFont = (state, index) => [{
     })
 ]
 
-export const GoogleFontsListLoaded = (state, googleFontsList) => ({
-    ...state,
-    status: "idle",
-    googleFontsList
-})
-
 export const LoadGoogleFontsList = (state) => [{
         ...state,
         status: "loading_google_fonts_list"
@@ -96,39 +139,11 @@ export const LoadGoogleFontsList = (state) => [{
     })
 ]
 
-export const MergeGoogleFontsList = (state) => ({
-    ...state,
-    googleFontsList: fonts.googleFonts
-})
-
-export const UpdateText = (state, {
-    target
-}) => ({
-    ...state,
-    text: target.value
-})
 
 const addPixels = (px, amount) => (
     parseInt(px.replace("px", ""), 10) + amount
 )
 
-export const IncSize = (state) => ChangeSize(state, addPixels(state.textStyle["font-size"], 1))
-
-export const DecSize = (state) => ChangeSize(state, addPixels(state.textStyle["font-size"], -1))
-
-export const ChangeSize = (state, size) => ({
-    ...state,
-    textStyle: {
-        ...state.textStyle,
-        "font-size": `${Math.trunc(size)}px`,
-    },
-    status: 'idle'
-})
-
-const SetIdle = (state) => ({
-    ...state,
-    status: "idle"
-})
 
 const randomColor = (bgfg) => Random({
     action: bgfg == 'bg' ? ChangeBGColor : ChangeFGColor,
@@ -167,7 +182,7 @@ export const RandomSize = (state) => [{
 
 // TODO: is this the best way? I'm losing intermediate state changes
 export const AllRandom = (state) => [
-    SetIdle({
+    SetChanged({
         ...state,
         status: "lucky_man"
     }),
@@ -187,6 +202,7 @@ export const ToFirebase = (state) => {
             firebase.SaveData({
                 action: SetIdle,
                 data: {
+                    savedAt: new Date(),
                     containerStyle: {
                         ...state.containerStyle,
                     },
@@ -195,7 +211,7 @@ export const ToFirebase = (state) => {
                     }
                 },
                 collection: 'combinations',
-                key: "12345",
+                key: state.uniqid,
                 database: state.appname
             })
         ]
@@ -212,8 +228,3 @@ export const ToFirebase = (state) => {
         ]
     }
 }
-
-const Connected = (state) => SetIdle({
-    ...state,
-    firebase: "connected",
-})

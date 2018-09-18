@@ -1,4 +1,10 @@
-import {toHttps} from './utils'
+import {
+    toHttps
+} from './utils'
+import {
+    process
+} from 'uniqid';
+
 
 const loadFont = ({
     action,
@@ -26,4 +32,14 @@ export const LoadFontEffect = (props) => ({
     action: props.action,
     error: props.error,
     font: props.font
+})
+
+const uniqId = (props, dispatch) => {
+    console.log("generating uniqid")
+    dispatch(props.action, process())
+}
+
+export const UniqIdEffect = (props) => ({
+    effect: uniqId,
+    action: props.action
 })
