@@ -4,4 +4,3 @@ node_modules/
 .cache/
 ./local_modules
 *.log
-src/fbconfig\.js
