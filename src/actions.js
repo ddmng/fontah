@@ -105,10 +105,33 @@ export const SetUniqId = (state, uniqid) => SetChanged({
     uniqid
 })
 
-const StateSaved = (state, {savedAt}) => SetIdle({
+const StateSaved = (state, {
+    savedAt
+}) => SetIdle({
     ...state,
     savedAt
 })
+
+export const SyncRequest = (state, {
+    document
+}) => {
+    if (document) {
+        if (document.data.savedAt.toDate() > state.savedAt) {
+            console.log("Doc in FB piu recente: ", document.data.savedAt, state.savedAt)
+            return SetIdle({
+                ...state,
+                containerStyle: document.data.containerStyle,
+                textStyle: document.data.textStyle,
+                fontIndex: document.data.textStyle
+            })
+        }
+    } else {
+        return SetIdle({
+            ...state,
+            synced: false
+        })
+    }
+}
 
 
 // ----------------------------------------------------
@@ -215,7 +238,7 @@ export const ToFirebase = (state) => {
                     action: StateSaved,
                     data: {
                         savedAt: savedAt,
-                        fontIdex: state.fontIndex,
+                        fontIndex: state.fontIndex,
                         containerStyle: {
                             ...state.containerStyle,
                         },
@@ -245,3 +268,22 @@ export const ToFirebase = (state) => {
         ]
     }
 }
+
+export const FromFirebase = (state) => [{
+    ...state,
+    status: "fetching"
+}, firebase.SyncData({
+    collection: 'combinations',
+    key: state.uniqid,
+    database: state.appname,
+    action: SyncRequest
+})]
+
+export const ParamsRead = (state, {token}) => [{
+        ...state,
+    },
+    fx.UniqIdEffect({
+        action: SetUniqId,
+        token
+    }), // generates a unique ID on start
+]

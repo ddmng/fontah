@@ -1,7 +1,7 @@
 import firebase from '@firebase/app';
 import '@firebase/firestore'
 
-const saveState = (props, dispatch) => {
+const saveData = (props, dispatch) => {
     console.log("Saving to Firebase!", props)
 
     firebase.app(props.database)
@@ -21,7 +21,7 @@ const saveState = (props, dispatch) => {
 
 export const SaveData = (props) => ({
     action: props.action,
-    effect: saveState,
+    effect: saveData,
     data: props.data,
     key: props.key,
     collection: props.collection,
@@ -47,4 +47,28 @@ export const Connect = (props) => ({
     effect: connect,
     config: props.config,
     name: props.name || "[DEFAULT]"
+})
+
+
+const syncData = (props, dispatch) =>
+    firebase.app(props.database)
+            .firestore()
+            .collection(props.collection)
+            .doc(props.key)
+            .onSnapshot(doc => {
+        console.log("Received update from firebase!", doc.data())
+
+        dispatch(props.action, {document: doc.data()} )
+    }, e => {
+        console.error("Error querying resource", e)
+        dispatch(props.failure);
+    })
+
+
+export const SyncData = (props) => ({
+    action: props.action,
+    effect: syncData,
+    key: props.key,
+    collection: props.collection,
+    database: props.database,
 })

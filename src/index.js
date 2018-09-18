@@ -9,11 +9,16 @@ import {
     AllRandom,
     ToFirebase,
     Connected,
-    SetUniqId
+    SetUniqId,
+    FromFirebase,
+    ParamsRead
 } from './actions'
 import {
-    UniqIdEffect
+    UniqIdEffect,
+    ParamsEffect
 } from './fx/effects'
+import * as firebase from './fx/firebase'
+
 import '../styles/style'
 import { Time } from '../local_modules/hyperapp-fx/src';
 import {buttonsDisabled} from './utils'
@@ -37,7 +42,8 @@ const blankState = {
     appname: 'fontah',
     firebase: "not_connected",
     uniqid: "",
-    fontIndex: -1
+    fontIndex: -1,
+    savedAt: -1
 }
 
 const initialState = MergeGoogleFontsList(blankState)
@@ -87,7 +93,8 @@ app({
     subscriptions: 
         (state) => [
             console.log("STATE", state), // logs the changed state
-            UniqIdEffect({action: SetUniqId}), // generates a unique ID on start
+            ParamsEffect({action: ParamsRead}),
             state.uniqid!="" && Time({every: 5000, action: ToFirebase}), // saves to firebase periodically
+            state.firebase=="connected" && state.uniqid!="" && Time({after: 1000, action: FromFirebase})
         ] 
 })
