@@ -9,7 +9,8 @@ import {
 const loadFont = ({
     action,
     error,
-    font
+    font,
+    index
 }, dispatch) => {
     const fontFace = new FontFace(
         font.family,
@@ -18,9 +19,9 @@ const loadFont = ({
             style: 'normal'
         });
 
-    fontFace.load().then(function (loaded_face) {
-        document.fonts.add(loaded_face);
-        dispatch(action, loaded_face)
+    fontFace.load().then(function (font) {
+        document.fonts.add(font);
+        dispatch(action, {font, index})
     }).catch(function (msg) {
         console.log(msg)
         dispatch(error, msg)
@@ -31,7 +32,8 @@ export const LoadFontEffect = (props) => ({
     effect: loadFont,
     action: props.action,
     error: props.error,
-    font: props.font
+    font: props.font,
+    index: props.index
 })
 
 const uniqId = (props, dispatch) => {

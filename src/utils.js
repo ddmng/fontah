@@ -11,3 +11,5 @@ export const isIn = (s, a) => {
         }
     }
 } 
+
+export const buttonsDisabled = (state) => !isIn(state.status, ["idle", "changed"])

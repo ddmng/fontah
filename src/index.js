@@ -16,7 +16,7 @@ import {
 } from './fx/effects'
 import '../styles/style'
 import { Time } from '../local_modules/hyperapp-fx/src';
-import {isIn} from './utils'
+import {buttonsDisabled} from './utils'
 
 const blankState = {
     status: "idle",
@@ -35,8 +35,9 @@ const blankState = {
     error: "",
     lastViewed: [],
     appname: 'fontah',
-    firestore: "not_connected",
-    uniqid: ""
+    firebase: "not_connected",
+    uniqid: "",
+    fontIndex: -1
 }
 
 const initialState = MergeGoogleFontsList(blankState)
@@ -53,7 +54,6 @@ app({
                 </div>
                 <div class="controls">
                     <div class="hsplit">
-                        
                         <button class="btn half" onClick={[RandomColor, {bgfg: 'fg'}]} title="Random foreground color"><i class="fas fa-paint-brush"></i></button>
                         <button class="btn half" onClick={[RandomColor, {bgfg: 'bg'}]} title="Random background color"><i class="fas fa-fill"></i></button>
                     </div>
@@ -61,8 +61,8 @@ app({
                         <button class="btn half" onClick={IncSize} title="Larger size"><i class="fas fa-plus"></i></button>
                         <button class="btn half" onClick={DecSize} title="Smaller size"><i class="fas fa-minus"></i></button>
                     </div>
-                    <button class="btn" onClick={RandomFont} title="Random font" disabled={ !isIn(state.status, ["idle", "changed"]) } title="Change font"><i class="fas fa-font"></i></button>
-                    <button class="btn" onClick={AllRandom} title="I'm feeling lucky" disabled={ 0 > ["idle", "changed"].indexOf(state.status) }><i class="fas fa-random"></i></button>
+                    <button class="btn" onClick={RandomFont} title="Random font" disabled={ buttonsDisabled(state) } title="Change font"><i class="fas fa-font"></i></button>
+                    <button class="btn" onClick={AllRandom} title="I'm feeling lucky" disabled={ buttonsDisabled(state) }><i class="fas fa-random"></i></button>
                     <button class="btn" onClick={Connected(initialState)} title="Start from scratch"><i class="fas fa-undo"></i></button>
                 </div>
             </div>
@@ -86,8 +86,8 @@ app({
     container: document.getElementById("app"),
     subscriptions: 
         (state) => [
-            console.log("STATE", state),
-            UniqIdEffect({action: SetUniqId}),
-            state.uniqid!="" && Time({every: 5000, action: ToFirebase}),
+            console.log("STATE", state), // logs the changed state
+            UniqIdEffect({action: SetUniqId}), // generates a unique ID on start
+            state.uniqid!="" && Time({every: 5000, action: ToFirebase}), // saves to firebase periodically
         ] 
 })

@@ -41,12 +41,16 @@ export const ChangeBGColor = (state, color) => SetChanged({
     },
 })
 
-export const FontLoaded = (state, font) => SetChanged({
+export const FontLoaded = (state, {
+    font,
+    index
+}) => SetChanged({
     ...state,
     textStyle: {
         ...state.textStyle,
         "font-family": font.family
-    }
+    },
+    fontIndex: index
 })
 
 export const GoogleFontsListLoaded = (state, googleFontsList) => SetChanged({
@@ -126,6 +130,7 @@ export const LoadFont = (state, index) => [{
         action: FontLoaded,
         error: FontLoadError,
         font: state.googleFontsList.items[Math.trunc(index)],
+        index: Math.trunc(index)
     })
 ]
 
@@ -189,32 +194,36 @@ export const AllRandom = (state) => [
     BatchFx(
         randomColor('bg'),
         randomColor('fg'),
-        // randomSize(),
         randomFont(state.googleFontsList.items.length - 1),
     )
 ]
 
 export const ToFirebase = (state) => {
     if (state.firebase == "connected") {
-        return [{ ...state,
-                status: "saving_state"
-            },
-            firebase.SaveData({
-                action: SetIdle,
-                data: {
-                    savedAt: new Date(),
-                    containerStyle: {
-                        ...state.containerStyle,
-                    },
-                    textStyle: {
-                        ...state.textStyle,
-                    }
+        if (state.status == "changed") {
+            return [{ ...state,
+                    status: "saving_state"
                 },
-                collection: 'combinations',
-                key: state.uniqid,
-                database: state.appname
-            })
-        ]
+                firebase.SaveData({
+                    action: SetIdle,
+                    data: {
+                        savedAt: new Date(),
+                        fontIdex: state.fontIndex,
+                        containerStyle: {
+                            ...state.containerStyle,
+                        },
+                        textStyle: {
+                            ...state.textStyle,
+                        }
+                    },
+                    collection: 'combinations',
+                    key: state.uniqid,
+                    database: state.appname
+                })
+            ]
+        } else {
+            return SetIdle
+        }
     } else {
         return [{
                 ...state,
