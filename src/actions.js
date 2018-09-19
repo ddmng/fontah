@@ -14,9 +14,49 @@ import {
     fbConfig
 } from './fbconfig'
 
+
+// ----------------------------------------------------
+// Initial app state
+// ----------------------------------------------------
+
+const blankState = {
+    status: "idle",
+    text: "Sample text, change me!",
+    textStyle: {
+        "font-size": "50px",
+        "font-family": "Roboto",
+        color: "black"
+    },
+    containerStyle: {
+        "background-color": "white"
+    },
+    footer: {
+        color: "black"
+    },
+    error: "",
+    lastViewed: [],
+    appname: 'fontah',
+    firebase: "not_connected",
+    uniqid: "",
+    fontIndex: -1,
+    savedAt: -1,
+    lastChange: -1
+}
+
+
 // ----------------------------------------------------
 // Pure actions
 // ----------------------------------------------------
+
+
+export const SetChanged = (state) => ({
+    ...state,
+    status: "changed",
+    error: "",
+    lastChange: new Date()
+})
+
+
 export const ChangeFGColor = (state, color) => SetChanged({
     ...state,
     textStyle: {
@@ -63,6 +103,13 @@ export const MergeGoogleFontsList = (state) => SetChanged({
     googleFontsList: fonts.googleFonts
 })
 
+export const initialState = MergeGoogleFontsList(blankState)
+
+export const Reset = (state) => SetChanged(Connected({
+    ...initialState,
+    uniqId: state.uniqId
+}))
+
 export const UpdateText = (state, {
     target
 }) => SetChanged({
@@ -83,16 +130,9 @@ export const ChangeSize = (state, size) => SetChanged({
     status: 'idle'
 })
 
-export const SetChanged = (state) => ({
-    ...state,
-    status: "changed",
-    error: "",
-    lastChange: new Date()
-})
-
 const SetIdle = (state) => ({
     ...state,
-    status: "idle",
+    status: state.status=="changed"?"changed":"idle",
     error: "",
 })
 
@@ -130,7 +170,7 @@ export const SyncRequest = (state, {document}) => {
             })
         }
     } else {
-        return state
+        return SetIdle(state)
     }
 }
 
@@ -261,7 +301,7 @@ export const ToFirebase = (state) => {
                 })
             ]
         } else {
-            return SetIdle
+            return state
         }
     } else {
         return [{
@@ -284,7 +324,7 @@ export const FromFirebase = (state) => [{
     collection: 'combinations',
     key: state.uniqid,
     database: state.appname,
-    actions: [SyncRequest, LoadFontFromFirebase, SetIdle]
+    actions: [SyncRequest, LoadFontFromFirebase]
 })]
 
 export const ParamsRead = (state, {token}) => [{

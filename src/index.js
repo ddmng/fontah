@@ -5,11 +5,10 @@ import {
     RandomColor,
     IncSize,
     DecSize,
-    MergeGoogleFontsList,
+    initialState,
     AllRandom,
-    SetChanged,
     ToFirebase,
-    Connected,
+    Reset,
     FromFirebase,
     ParamsRead
 } from './actions'
@@ -20,32 +19,6 @@ import {
 import '../styles/style'
 import { Time } from '../local_modules/hyperapp-fx/src';
 import {buttonsDisabled} from './utils'
-
-const blankState = {
-    status: "idle",
-    text: "Sample text, change me!",
-    textStyle: {
-        "font-size": "50px",
-        "font-family": "Roboto",
-        color: "black"
-    },
-    containerStyle: {
-        "background-color": "white"
-    },
-    footer: {
-        color: "black"
-    },
-    error: "",
-    lastViewed: [],
-    appname: 'fontah',
-    firebase: "not_connected",
-    uniqid: "",
-    fontIndex: -1,
-    savedAt: -1,
-    lastChange: -1
-}
-
-const initialState = MergeGoogleFontsList(blankState)
 
 
 // TODO: components
@@ -68,7 +41,7 @@ app({
                     </div>
                     <button class="btn" onClick={RandomFont} title="Random font" disabled={ buttonsDisabled(state) } title="Change font"><i class="fas fa-font"></i></button>
                     <button class="btn" onClick={AllRandom} title="I'm feeling lucky" disabled={ buttonsDisabled(state) }><i class="fas fa-random"></i></button>
-                    <button class="btn" onClick={SetChanged(Connected(initialState))} title="Start from scratch"><i class="fas fa-undo"></i></button>
+                    <button class="btn" onClick={Reset} title="Start from scratch"><i class="fas fa-undo"></i></button>
                 </div>
             </div>
             <div class="subcontainer">
