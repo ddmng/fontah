@@ -9,15 +9,12 @@ import {
     AllRandom,
     ToFirebase,
     Connected,
-    SetUniqId,
     FromFirebase,
     ParamsRead
 } from './actions'
 import {
-    UniqIdEffect,
     ParamsEffect
 } from './fx/effects'
-import * as firebase from './fx/firebase'
 
 import '../styles/style'
 import { Time } from '../local_modules/hyperapp-fx/src';
@@ -95,6 +92,8 @@ app({
             console.log("STATE", state), // logs the changed state
             ParamsEffect({action: ParamsRead}),
             state.uniqid!="" && Time({every: 5000, action: ToFirebase}), // saves to firebase periodically
-            state.firebase=="connected" && state.uniqid!="" && Time({after: 1000, action: FromFirebase})
+            state.firebase=="connected" 
+                && state.uniqid!="" 
+                && Time({after: 1000, action: FromFirebase}) // registers for updates
         ] 
 })

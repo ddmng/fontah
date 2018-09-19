@@ -65,7 +65,7 @@ export const MergeGoogleFontsList = (state) => SetChanged({
 
 export const UpdateText = (state, {
     target
-}) => ({
+}) => SetChanged({
     ...state,
     text: target.value
 })
@@ -116,13 +116,14 @@ export const SyncRequest = (state, {
     document
 }) => {
     if (document) {
-        if (document.data.savedAt.toDate() > state.savedAt) {
-            console.log("Doc in FB piu recente: ", document.data.savedAt, state.savedAt)
+        if (state.savedAt==-1 || document.data.savedAt.toMillis() > state.savedAt.getTime()) {
             return SetIdle({
                 ...state,
                 containerStyle: document.data.containerStyle,
                 textStyle: document.data.textStyle,
-                fontIndex: document.data.textStyle
+                fontIndex: document.data.textStyle,
+                text: document.data.text,
+                footer: document.data.text
             })
         }
     } else {
@@ -244,12 +245,14 @@ export const ToFirebase = (state) => {
                         },
                         textStyle: {
                             ...state.textStyle,
-                        }
+                        },
+                        text: state.text,
+                        footer: state.footer
                     },
                     collection: 'combinations',
                     key: state.uniqid,
                     database: state.appname,
-                    savedAt
+                    savedAt,
                 })
             ]
         } else {
