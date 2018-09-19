@@ -1,8 +1,8 @@
 export const fbConfig = {
-  apiKey: "AIzaSyALQamLXyRBMGjxdNVebyC1c29LfVFrXqY",
-  authDomain: "fontah-db.firebaseapp.com",
-  databaseURL: "https://fontah-db.firebaseio.com",
-  projectId: "fontah-db",
-  storageBucket: "fontah-db.appspot.com",
-  messagingSenderId: "884165895977"
+  apiKey: "AIzaSyCRw6hfCuWbtXEEQCWzqlkN1jv8WHlbIGk",
+  authDomain: "fontah-2.firebaseapp.com",
+  databaseURL: "https://fontah-2.firebaseio.com",
+  projectId: "fontah-2",
+  storageBucket: "fontah-2.appspot.com",
+  messagingSenderId: "811481772908"
 };

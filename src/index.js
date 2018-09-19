@@ -1,19 +1,30 @@
 import { h, app } from '../local_modules/hyperapp/src'
 import {
     UpdateText,
-    RandomFont, 
-    RandomColor,
-    IncSize,
-    DecSize,
     initialState,
     AllRandom,
-    Connect,
-    ToFirebase,
     Reset,
-    FromFirebase,
     GetToken,
     CopyLink
-} from './actions'
+} from './actions/general'
+
+import {
+    Connect,
+    ToFirebase,
+    FromFirebase,
+} from './actions/backend'
+
+import{ 
+    RandomFont, 
+    IncSize,
+    DecSize,
+} from './actions/fonts'
+
+import{ 
+    RandomColor, 
+} from './actions/colors'
+
+
 import {
     TokenEffect
 } from './fx/effects'

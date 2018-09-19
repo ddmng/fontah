@@ -24,6 +24,7 @@ Here are some idea on how to improve the project:
 * [x] mobile-friendly (more or less)
 * [x] share your work (url) and collaborate with a unique link (Firebase backed)
 * [ ] notify page viewers
+* [ ] tune firebase settings
 * [ ] upvote combination
 * [ ] bookmarks, w/ local storage persistence
 * [ ] combinations history
