@@ -24,6 +24,8 @@ Here are some idea on how to improve the project:
 * [x] mobile-friendly (more or less)
 * [x] share your work (url) and collaborate with a unique link (Firebase backed)
 * [ ] notify page viewers
+* [ ] Work without firebase backend in case ov quota expiration
+* [ ] error management on effects (starting from firebase quota exceeded)
 * [ ] tune firebase settings
 * [ ] upvote combination
 * [ ] bookmarks, w/ local storage persistence
@@ -31,7 +33,7 @@ Here are some idea on how to improve the project:
 * [ ] copy css
 * [ ] ~~use [hyperapp subscriptions](https://github.com/jorgebucaran/hyperapp/issues/752) for media-change in JS~~
 * [ ] PWA
-* [ ] Work without firebase backend
+* [ ] couchdb backend?
 
 ### How to run it locally
 Clone the repo:
