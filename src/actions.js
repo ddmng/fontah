@@ -328,7 +328,7 @@ export const FromFirebase = (state) => [{
     actions: [SyncRequest, LoadFontFromFirebase]
 })]
 
-export const ParamsRead = (state, {token}) => [{
+export const GetToken = (state, {token}) => [{
         ...state,
     },
     fx.UniqIdEffect({

@@ -38,11 +38,13 @@ export const LoadFontEffect = (props) => ({
 
 const uniqId = (props, dispatch) => {
     if(props.token) {
-        console.log("using params: ", props.token)
-        dispatch(props.action, props.token)
+        console.log("using params: ", props.token[1])
+        dispatch(props.action, props.token[1])
     } else {
         console.log("generating uniqid")
-        dispatch(props.action, process())
+        const p = process()
+        window.location = window.location + "#" + p
+        dispatch(props.action, p)
     }
 }
 
@@ -54,14 +56,12 @@ export const UniqIdEffect = (props) => ({
 })
 
 
-
 const readParams = (props, dispatch)  => {
-    const p = new URL(window.location).searchParams.get("p")
-    console.log("URL: ", p)
-    dispatch(props.action, {token: p})
+    console.log("URL: ", window.location.hash)
+    dispatch(props.action, {token: window.location.hash})
 }
 
-export const ParamsEffect = (props) => ({
+export const TokenEffect = (props) => ({
     effect: readParams,
     action: props.action
 })

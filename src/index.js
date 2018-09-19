@@ -10,10 +10,10 @@ import {
     ToFirebase,
     Reset,
     FromFirebase,
-    ParamsRead
+    GetToken
 } from './actions'
 import {
-    ParamsEffect
+    TokenEffect
 } from './fx/effects'
 
 import '../styles/style'
@@ -65,7 +65,7 @@ app({
     subscriptions: 
         (state) => [
             console.log("STATE", state), // logs the changed state
-            ParamsEffect({action: ParamsRead}),
+            TokenEffect({action: GetToken}),
             state.uniqid!="" && state.status=="changed" && Time({after: 10, action: ToFirebase}), // saves to firebase periodically
             state.firebase=="connected" 
                 && state.uniqid!="" 
