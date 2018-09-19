@@ -66,7 +66,7 @@ app({
         (state) => [
             console.log("STATE", state), // logs the changed state
             ParamsEffect({action: ParamsRead}),
-            state.uniqid!="" && Time({every: 500, action: ToFirebase}), // saves to firebase periodically
+            state.uniqid!="" && state.status=="changed" && Time({after: 10, action: ToFirebase}), // saves to firebase periodically
             state.firebase=="connected" 
                 && state.uniqid!="" 
                 && Time({after: 1000, action: FromFirebase}) // registers for updates

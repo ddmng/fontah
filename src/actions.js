@@ -107,7 +107,8 @@ export const initialState = MergeGoogleFontsList(blankState)
 
 export const Reset = (state) => SetChanged(Connected({
     ...initialState,
-    uniqId: state.uniqId
+    uniqid: state.uniqid,
+    lastChange: new Date()
 }))
 
 export const UpdateText = (state, {
