@@ -84,14 +84,14 @@ export const ChangeBGColor = (state, color) => SetChanged({
 export const FontLoaded = (state, {
     font,
     index
-}) => state.fontIndex!=index?SetChanged({
+}) => state.fontIndex != index ? SetChanged({
     ...state,
     textStyle: {
         ...state.textStyle,
         "font-family": font.family
     },
     fontIndex: index
-}):SetIdle(state)
+}) : SetIdle(state)
 
 export const GoogleFontsListLoaded = (state, googleFontsList) => ({
     ...state,
@@ -133,7 +133,7 @@ export const ChangeSize = (state, size) => SetChanged({
 
 const SetIdle = (state) => ({
     ...state,
-    status: state.status=="changed"?"changed":"idle",
+    status: state.status == "changed" ? "changed" : "idle",
     error: "",
 })
 
@@ -154,11 +154,13 @@ const StateSaved = (state, {
     savedAt
 })
 
-export const SyncRequest = (state, {document}) => {
+export const SyncRequest = (state, {
+    document
+}) => {
     if (document) {
-        if (state.lastChange==-1 || document.data.savedAt.toMillis() > state.lastChange.getTime()) {
+        if (state.lastChange == -1 || document.data.savedAt.toMillis() > state.lastChange.getTime()) {
             console.log("Update state from Firebase: document is", document.data.savedAt.toMillis())
-            console.log("Update state from Firebase: state    is", state.lastChange==-1?-1:state.lastChange.getTime())
+            console.log("Update state from Firebase: state    is", state.lastChange == -1 ? -1 : state.lastChange.getTime())
             return SetIdle({
                 ...state,
                 containerStyle: document.data.containerStyle,
@@ -188,10 +190,12 @@ export const FontLoadError = (state, error) => [{
     action: SetChanged
 })]
 
-const LoadFontFromFirebase = (state, {document}) => 
-    document && document.data.fontIndex>=0?
-    LoadFont(state, document.data.fontIndex)
-    :state
+const LoadFontFromFirebase = (state, {
+        document
+    }) =>
+    document && document.data.fontIndex >= 0 ?
+    LoadFont(state, document.data.fontIndex) :
+    state
 
 export const LoadFont = (state, index) => [{
         ...state,
@@ -274,14 +278,14 @@ export const AllRandom = (state) => [
 ]
 
 export const Connect = (state) => [{
-    ...state,
-    status: "connecting"
-},
-firebase.Connect({
-    action: Connected,
-    config: fbConfig,
-    name: state.appname
-})
+        ...state,
+        status: "connecting"
+    },
+    firebase.Connect({
+        action: Connected,
+        config: fbConfig,
+        name: state.appname
+    })
 ]
 
 export const ToFirebase = (state) => {
@@ -330,7 +334,9 @@ export const FromFirebase = (state) => [{
     actions: [SyncRequest, LoadFontFromFirebase]
 })]
 
-export const GetToken = (state, {token}) => [{
+export const GetToken = (state, {
+    token
+}) => [{
         ...state,
     },
     fx.UniqIdEffect({

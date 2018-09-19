@@ -21,7 +21,10 @@ const loadFont = ({
 
     fontFace.load().then(function (font) {
         document.fonts.add(font);
-        dispatch(action, {font, index})
+        dispatch(action, {
+            font,
+            index
+        })
     }).catch(function (msg) {
         console.log(msg)
         dispatch(error, msg)
@@ -37,13 +40,13 @@ export const LoadFontEffect = (props) => ({
 })
 
 const uniqId = (props, dispatch) => {
-    if(props.token) {
+    if (props.token) {
         console.log("using params: ", props.token)
         dispatch(props.action, props.token)
     } else {
         console.log("generating uniqid")
         const p = process("#")
-        window.location = window.location +  p
+        window.location = window.location + p
         dispatch(props.action, p)
     }
 }
@@ -56,9 +59,11 @@ export const UniqIdEffect = (props) => ({
 })
 
 
-const readParams = (props, dispatch)  => {
+const readParams = (props, dispatch) => {
     console.log("URL: ", window.location.hash)
-    dispatch(props.action, {token: window.location.hash})
+    dispatch(props.action, {
+        token: window.location.hash
+    })
 }
 
 export const TokenEffect = (props) => ({
@@ -74,11 +79,10 @@ const copyLink = (props, dispatch) => {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("visible");
     setTimeout(
-        () => { 
-            popup.classList.toggle("visible") 
-            popup.classList.toggle("hidden");  
-        }
-    , 5000)
+        () => {
+            popup.classList.toggle("visible")
+            popup.classList.toggle("hidden");
+        }, 5000)
 
     dispatch(props.action)
 }

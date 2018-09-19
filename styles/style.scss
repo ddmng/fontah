@@ -8,6 +8,7 @@ html {
     height: 100%;
     width: 100%;
 }
+
 body {
     font-family: 'Headland One', serif;
     height: 100%;
@@ -35,10 +36,12 @@ body {
     font-weight: 800;
     font-size: 1.1em;
     cursor: pointer;
+
     &:disabled {
         background: gray;
     }
-    &.half{
+
+    &.half {
         height: 30px;
         margin: 0px;
         border: 0px solid white;
@@ -89,8 +92,15 @@ body {
 }
 
 @keyframes textchange {
-    0% {font-size: 100px; opacity:1;}
-    100% {font-size: 50px;opacity:1;}
+    0% {
+        font-size: 100px;
+        opacity: 1;
+    }
+
+    100% {
+        font-size: 50px;
+        opacity: 1;
+    }
 }
 
 .title {
@@ -135,6 +145,7 @@ body {
         margin: 5px;
         font-size: .5em;
     }
+
     .star {
         margin: 5px;
     }
