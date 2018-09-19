@@ -7,9 +7,9 @@ export const isIn = (s, a) => {
         if( a["indexOf"] === undefined ) {
             return false
         } else {
-            return ["idle", "changed"].indexOf(s)>=0 ? true : false
+            return a.indexOf(s)>=0 ? true : false
         }
     }
 } 
 
-export const buttonsDisabled = (state) => !isIn(state.status, ["idle", "changed"])
+export const buttonsDisabled = (state) => isIn(state.status, ["saving_state", "loading_font"])

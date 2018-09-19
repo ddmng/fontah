@@ -59,12 +59,12 @@ app({
                 </div>
                 <div class="controls">
                     <div class="hsplit">
-                        <button class="btn half" onClick={[RandomColor, {bgfg: 'fg'}]} title="Random foreground color"><i class="fas fa-paint-brush"></i></button>
-                        <button class="btn half" onClick={[RandomColor, {bgfg: 'bg'}]} title="Random background color"><i class="fas fa-fill"></i></button>
+                        <button class="btn half" onClick={[RandomColor, {bgfg: 'fg'}]} disabled={ buttonsDisabled(state) } title="Random foreground color"><i class="fas fa-paint-brush"></i></button>
+                        <button class="btn half" onClick={[RandomColor, {bgfg: 'bg'}]} disabled={ buttonsDisabled(state) } title="Random background color"><i class="fas fa-fill"></i></button>
                     </div>
                     <div class="hsplit">
-                        <button class="btn half" onClick={IncSize} title="Larger size"><i class="fas fa-plus"></i></button>
-                        <button class="btn half" onClick={DecSize} title="Smaller size"><i class="fas fa-minus"></i></button>
+                        <button class="btn half" onClick={IncSize} title="Larger size" disabled={ buttonsDisabled(state) }><i class="fas fa-plus"></i></button>
+                        <button class="btn half" onClick={DecSize} title="Smaller size" disabled={ buttonsDisabled(state) }><i class="fas fa-minus"></i></button>
                     </div>
                     <button class="btn" onClick={RandomFont} title="Random font" disabled={ buttonsDisabled(state) } title="Change font"><i class="fas fa-font"></i></button>
                     <button class="btn" onClick={AllRandom} title="I'm feeling lucky" disabled={ buttonsDisabled(state) }><i class="fas fa-random"></i></button>
@@ -93,7 +93,7 @@ app({
         (state) => [
             console.log("STATE", state), // logs the changed state
             ParamsEffect({action: ParamsRead}),
-            state.uniqid!="" && Time({every: 5000, action: ToFirebase}), // saves to firebase periodically
+            state.uniqid!="" && Time({every: 500, action: ToFirebase}), // saves to firebase periodically
             state.firebase=="connected" 
                 && state.uniqid!="" 
                 && Time({after: 1000, action: FromFirebase}) // registers for updates
