@@ -41,7 +41,7 @@ const connect = (props, dispatch) => {
     db.settings(settings);
 
     db.collection("/sessions").doc().set({
-        data: "new session"
+        started: new Date()
     })
 
     console.log("dispatching", props.action)
