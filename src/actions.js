@@ -44,14 +44,14 @@ export const ChangeBGColor = (state, color) => SetChanged({
 export const FontLoaded = (state, {
     font,
     index
-}) => SetChanged({
+}) => state.fontIndex!=index?SetChanged({
     ...state,
     textStyle: {
         ...state.textStyle,
         "font-family": font.family
     },
     fontIndex: index
-})
+}):SetIdle(state)
 
 export const GoogleFontsListLoaded = (state, googleFontsList) => SetChanged({
     ...state,
@@ -83,10 +83,11 @@ export const ChangeSize = (state, size) => SetChanged({
     status: 'idle'
 })
 
-const SetChanged = (state) => ({
+export const SetChanged = (state) => ({
     ...state,
     status: "changed",
     error: "",
+    lastChange: new Date()
 })
 
 const SetIdle = (state) => ({
@@ -114,21 +115,22 @@ const StateSaved = (state, {
 
 export const SyncRequest = (state, {document}) => {
     if (document) {
-        if (state.savedAt==-1 || document.data.savedAt.toMillis() > state.savedAt.getTime()) {
+        if (state.lastChange==-1 || document.data.savedAt.toMillis() > state.lastChange.getTime()) {
+            console.log("Update state from Firebase: document is", document.data.savedAt.toMillis())
+            console.log("Update state from Firebase: state    is", state.lastChange==-1?-1:state.lastChange.getTime())
             return SetIdle({
                 ...state,
                 containerStyle: document.data.containerStyle,
                 textStyle: document.data.textStyle,
-                fontIndex: document.data.textStyle,
+                fontIndex: document.data.fontIndex,
                 text: document.data.text,
-                footer: document.data.text,
+                footer: document.data.footer,
+                savedAt: document.data.savedAt.toDate(),
+                lastChange: document.data.savedAt.toDate()
             })
         }
     } else {
-        return SetIdle({
-            ...state,
-            synced: false
-        })
+        return state
     }
 }
 
@@ -145,7 +147,10 @@ export const FontLoadError = (state, error) => [{
     action: SetChanged
 })]
 
-const LoadFontFromFirebase = (state, {document}) => LoadFont(state, document.data.fontIndex)
+const LoadFontFromFirebase = (state, {document}) => 
+    document && document.data.fontIndex>=0?
+    LoadFont(state, document.data.fontIndex)
+    :state
 
 export const LoadFont = (state, index) => [{
         ...state,
@@ -228,7 +233,7 @@ export const AllRandom = (state) => [
 ]
 
 export const ToFirebase = (state) => {
-    const savedAt = new Date();
+    //const savedAt = new Date();
 
     if (state.firebase == "connected") {
         if (state.status == "changed") {
@@ -238,7 +243,7 @@ export const ToFirebase = (state) => {
                 firebase.SaveData({
                     action: StateSaved,
                     data: {
-                        savedAt: savedAt,
+                        savedAt: state.lastChange,
                         fontIndex: state.fontIndex,
                         containerStyle: {
                             ...state.containerStyle,
@@ -252,7 +257,7 @@ export const ToFirebase = (state) => {
                     collection: 'combinations',
                     key: state.uniqid,
                     database: state.appname,
-                    savedAt,
+                    savedAt: state.lastChange
                 })
             ]
         } else {
@@ -279,7 +284,7 @@ export const FromFirebase = (state) => [{
     collection: 'combinations',
     key: state.uniqid,
     database: state.appname,
-    actions: [SyncRequest, LoadFontFromFirebase]
+    actions: [SyncRequest, LoadFontFromFirebase, SetIdle]
 })]
 
 export const ParamsRead = (state, {token}) => [{

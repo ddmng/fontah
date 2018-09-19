@@ -7,6 +7,7 @@ import {
     DecSize,
     MergeGoogleFontsList,
     AllRandom,
+    SetChanged,
     ToFirebase,
     Connected,
     FromFirebase,
@@ -40,7 +41,8 @@ const blankState = {
     firebase: "not_connected",
     uniqid: "",
     fontIndex: -1,
-    savedAt: -1
+    savedAt: -1,
+    lastChange: -1
 }
 
 const initialState = MergeGoogleFontsList(blankState)
@@ -66,7 +68,7 @@ app({
                     </div>
                     <button class="btn" onClick={RandomFont} title="Random font" disabled={ buttonsDisabled(state) } title="Change font"><i class="fas fa-font"></i></button>
                     <button class="btn" onClick={AllRandom} title="I'm feeling lucky" disabled={ buttonsDisabled(state) }><i class="fas fa-random"></i></button>
-                    <button class="btn" onClick={Connected(initialState)} title="Start from scratch"><i class="fas fa-undo"></i></button>
+                    <button class="btn" onClick={SetChanged(Connected(initialState))} title="Start from scratch"><i class="fas fa-undo"></i></button>
                 </div>
             </div>
             <div class="subcontainer">
