@@ -109,6 +109,15 @@ body {
     text-shadow: 1px 1px gray;
 }
 
+.errormsg {
+    font-size: 12px;
+    margin: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    &.hidden {
+        visibility: hidden;
+    }
+}
+
 @media only screen and (max-width: $mobile-width) {
     .title {
         font-size: 20px;

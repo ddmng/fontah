@@ -43,6 +43,7 @@ app({
                 <div class="title">
                     font-ah!
                 </div>
+                <div class={state.errors.firebase!=""?"errormsg":"errormsg hidden"}>There are issues with the backend, the sharing function will not work</div>
                 <div class="controls">
                     <div class="hsplit">
                         <button class="btn half" onClick={[RandomColor, {bgfg: 'fg'}]} disabled={ buttonsDisabled(state) } title="Random foreground color"><i class="fas fa-paint-brush"></i></button>
