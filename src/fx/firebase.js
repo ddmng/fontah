@@ -58,7 +58,9 @@ const syncData = (props, dispatch) =>
             .onSnapshot(doc => {
         console.log("Received update from firebase!", doc.data())
 
-        dispatch(props.action, {document: doc.data()} )
+        props.actions.map(action => 
+            dispatch(action, {document: doc.data()} )
+        )
     }, e => {
         console.error("Error querying resource", e)
         dispatch(props.failure);
@@ -66,7 +68,7 @@ const syncData = (props, dispatch) =>
 
 
 export const SyncData = (props) => ({
-    action: props.action,
+    actions: props.actions,
     effect: syncData,
     key: props.key,
     collection: props.collection,

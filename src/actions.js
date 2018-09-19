@@ -112,9 +112,7 @@ const StateSaved = (state, {
     savedAt
 })
 
-export const SyncRequest = (state, {
-    document
-}) => {
+export const SyncRequest = (state, {document}) => {
     if (document) {
         if (state.savedAt==-1 || document.data.savedAt.toMillis() > state.savedAt.getTime()) {
             return SetIdle({
@@ -123,7 +121,7 @@ export const SyncRequest = (state, {
                 textStyle: document.data.textStyle,
                 fontIndex: document.data.textStyle,
                 text: document.data.text,
-                footer: document.data.text
+                footer: document.data.text,
             })
         }
     } else {
@@ -146,6 +144,8 @@ export const FontLoadError = (state, error) => [{
     after: 2000,
     action: SetChanged
 })]
+
+const LoadFontFromFirebase = (state, {document}) => LoadFont(state, document.data.fontIndex)
 
 export const LoadFont = (state, index) => [{
         ...state,
@@ -247,7 +247,7 @@ export const ToFirebase = (state) => {
                             ...state.textStyle,
                         },
                         text: state.text,
-                        footer: state.footer
+                        footer: state.footer,
                     },
                     collection: 'combinations',
                     key: state.uniqid,
@@ -279,7 +279,7 @@ export const FromFirebase = (state) => [{
     collection: 'combinations',
     key: state.uniqid,
     database: state.appname,
-    action: SyncRequest
+    actions: [SyncRequest, LoadFontFromFirebase]
 })]
 
 export const ParamsRead = (state, {token}) => [{
