@@ -86,7 +86,7 @@ app({
             console.log("STATE", state), // logs the changed state
             TokenEffect({action: GetToken}),
             state.uniqid!="" && state.firebase=="not_connected" && Time({after: 10, action: Connect}),
-            state.uniqid!="" && state.status=="changed" && Time({after: 10, action: ToFirebase}), // saves to firebase periodically
+            state.uniqid!="" && state.status=="changed" && Time({after: 100, action: ToFirebase}), // saves to firebase periodically
             state.firebase=="connected" 
                 && state.uniqid!="" 
                 && Time({after: 1000, action: FromFirebase}) // registers for updates
