@@ -57,11 +57,15 @@ app({
                     fg-color {state.textStyle.color},
                     bg-color {state.containerStyle["background-color"]}
                 </p>
+                <div class="popup" onclick={CopyLink}>Share <i class="fas fa-share"></i>
+                    <span class="popuptext " id="myPopup">Link copied. Send it to who you want to join this work!</span>
+                </div>
                 <div class="star">
-                    <a class="" onClick={CopyLink}>Share it!</a>
                     <a class="github-button" href="https://github.com/ddmng/fontah" data-size="large" data-show-count="true" aria-label="Star ddmng/fontah on GitHub">Star</a>            
                 </div>
                 <input id="loc" readonly value={window.location}></input>
+
+
             </div>
         </div>
     ,

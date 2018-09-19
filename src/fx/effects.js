@@ -70,6 +70,16 @@ const copyLink = (props, dispatch) => {
     console.log("Copying link")
     document.getElementById("loc").select()
     document.execCommand('copy');
+
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("visible");
+    setTimeout(
+        () => { 
+            popup.classList.toggle("visible") 
+            popup.classList.toggle("hidden");  
+        }
+    , 5000)
+
     dispatch(props.action)
 }
 
