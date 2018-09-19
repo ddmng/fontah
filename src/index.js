@@ -40,7 +40,7 @@ app({
                         <button class="btn half" onClick={DecSize} title="Smaller size" disabled={ buttonsDisabled(state) }><i class="fas fa-minus"></i></button>
                     </div>
                     <button class="btn" onClick={RandomFont} title="Random font" disabled={ buttonsDisabled(state) } title="Change font"><i class="fas fa-font"></i></button>
-                    <button class="btn" onClick={AllRandom} title="I'm feeling lucky" disabled={ buttonsDisabled(state) }><i class="fas fa-random"></i></button>
+                    <button class="btn" onClick={AllRandom} title="Surprise me!" disabled={ buttonsDisabled(state) }><i class="fas fa-gift"></i></button>
                     <button class="btn" onClick={Reset} title="Start from scratch"><i class="fas fa-undo"></i></button>
                 </div>
             </div>

@@ -38,12 +38,12 @@ export const LoadFontEffect = (props) => ({
 
 const uniqId = (props, dispatch) => {
     if(props.token) {
-        console.log("using params: ", props.token[1])
-        dispatch(props.action, props.token[1])
+        console.log("using params: ", props.token)
+        dispatch(props.action, props.token)
     } else {
         console.log("generating uniqid")
-        const p = process()
-        window.location = window.location + "#" + p
+        const p = process("#")
+        window.location = window.location +  p
         dispatch(props.action, p)
     }
 }
