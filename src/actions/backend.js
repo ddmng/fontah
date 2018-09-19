@@ -3,7 +3,6 @@ import {
 } from '../fbconfig'
 
 import {
-    StateSaved,
     SetIdle
 } from './general'
 
@@ -11,10 +10,22 @@ import {LoadFont } from './fonts'
 
 import * as firebase from '../fx/firebase'
 
+
 export const Connected = (state) => ({
     ...state,
     firebase: "connected",
 })
+
+export const Connect = (state) => [{
+    ...state,
+    status: "connecting"
+},
+firebase.Connect({
+    action: Connected,
+    config: fbConfig,
+    name: state.appname
+})
+]
 
 export const SyncRequest = (state, {
     document
@@ -39,7 +50,6 @@ export const SyncRequest = (state, {
     }
 }
 
-
 const LoadFontFromFirebase = (state, {
         document
     }) =>
@@ -47,22 +57,27 @@ const LoadFontFromFirebase = (state, {
     LoadFont(state, document.data.fontIndex) :
     state
 
+export const StateSaved = (state, {
+    savedAt
+}) => SetIdle({
+    ...state,
+    savedAt,
+    errors: {
+        ...state.errors,
+        firebase: ""
+    }
+})
 
 
-export const Connect = (state) => [{
-        ...state,
-        status: "connecting"
-    },
-    firebase.Connect({
-        action: Connected,
-        config: fbConfig,
-        name: state.appname
-    })
-]
+const BackendError = (state, {error}) => SetIdle({
+    ...state,
+    errors: {
+        ...state.errors,
+        firebase: error
+    }
+})
 
 export const ToFirebase = (state) => {
-    //const savedAt = new Date();
-
     if (state.firebase == "connected") {
         if (state.status == "changed") {
             return [{ ...state,
@@ -70,6 +85,7 @@ export const ToFirebase = (state) => {
                 },
                 firebase.SaveData({
                     action: StateSaved,
+                    error: BackendError,
                     data: {
                         savedAt: state.lastChange,
                         fontIndex: state.fontIndex,
@@ -103,5 +119,6 @@ export const FromFirebase = (state) => [{
     collection: 'combinations',
     key: state.uniqid,
     database: state.appname,
+    error: BackendError,
     actions: [SyncRequest, LoadFontFromFirebase]
 })]

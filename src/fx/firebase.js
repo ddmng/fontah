@@ -17,7 +17,7 @@ const saveData = (props, dispatch) => {
             })
         }).catch(error => {
             console.error("Error updating data", error)
-            dispatch(props.action, error)
+            dispatch(props.error, {error})
         })
 }
 
@@ -71,7 +71,7 @@ const syncData = (props, dispatch) =>
         )
     }, e => {
         console.error("Error querying resource", e)
-        dispatch(props.failure);
+        dispatch(props.error, {e});
     })
 
 

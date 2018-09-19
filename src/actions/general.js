@@ -14,6 +14,10 @@ import {randomColor} from './colors'
 
 const blankState = {
     status: "idle",
+    errors: {
+        firebase: "",
+        others: ""
+    },
     text: "Share the link and collaborate!",
     textStyle: {
         "font-size": "50px",
@@ -76,14 +80,6 @@ export const SetUniqId = (state, uniqid) => ({
     ...state,
     uniqid
 })
-
-export const StateSaved = (state, {
-    savedAt
-}) => SetIdle({
-    ...state,
-    savedAt
-})
-
 
 
 // ----------------------------------------------------
