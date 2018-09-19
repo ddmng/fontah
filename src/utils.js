@@ -12,4 +12,5 @@ export const isIn = (s, a) => {
     }
 } 
 
-export const buttonsDisabled = (state) => isIn(state.status, ["saving_state", "loading_font"])
+export const buttonsDisabled = (state) => 
+        isIn(state.status, ["saving_state", "loading_font"]) || isIn(state.firebase, ["not_connected"]) 

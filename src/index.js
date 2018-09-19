@@ -7,6 +7,7 @@ import {
     DecSize,
     initialState,
     AllRandom,
+    Connect,
     ToFirebase,
     Reset,
     FromFirebase,
@@ -41,7 +42,7 @@ app({
                     </div>
                     <button class="btn" onClick={RandomFont} title="Random font" disabled={ buttonsDisabled(state) } title="Change font"><i class="fas fa-font"></i></button>
                     <button class="btn" onClick={AllRandom} title="Surprise me!" disabled={ buttonsDisabled(state) }><i class="fas fa-gift"></i></button>
-                    <button class="btn" onClick={Reset} title="Start from scratch"><i class="fas fa-undo"></i></button>
+                    <button class="btn" onClick={Reset} title="Start from scratch" disabled={ buttonsDisabled(state) }><i class="fas fa-undo"></i></button>
                 </div>
             </div>
             <div class="subcontainer">
@@ -66,6 +67,7 @@ app({
         (state) => [
             console.log("STATE", state), // logs the changed state
             TokenEffect({action: GetToken}),
+            state.uniqid!="" && state.firebase=="not_connected" && Time({after: 10, action: Connect}),
             state.uniqid!="" && state.status=="changed" && Time({after: 10, action: ToFirebase}), // saves to firebase periodically
             state.firebase=="connected" 
                 && state.uniqid!="" 

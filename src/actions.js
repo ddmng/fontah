@@ -93,12 +93,12 @@ export const FontLoaded = (state, {
     fontIndex: index
 }):SetIdle(state)
 
-export const GoogleFontsListLoaded = (state, googleFontsList) => SetChanged({
+export const GoogleFontsListLoaded = (state, googleFontsList) => ({
     ...state,
     googleFontsList
 })
 
-export const MergeGoogleFontsList = (state) => SetChanged({
+export const MergeGoogleFontsList = (state) => ({
     ...state,
     googleFontsList: fonts.googleFonts
 })
@@ -137,12 +137,12 @@ const SetIdle = (state) => ({
     error: "",
 })
 
-export const Connected = (state) => SetChanged({
+export const Connected = (state) => ({
     ...state,
     firebase: "connected",
 })
 
-export const SetUniqId = (state, uniqid) => SetChanged({
+export const SetUniqId = (state, uniqid) => ({
     ...state,
     uniqid
 })
@@ -273,6 +273,17 @@ export const AllRandom = (state) => [
     )
 ]
 
+export const Connect = (state) => [{
+    ...state,
+    status: "connecting"
+},
+firebase.Connect({
+    action: Connected,
+    config: fbConfig,
+    name: state.appname
+})
+]
+
 export const ToFirebase = (state) => {
     //const savedAt = new Date();
 
@@ -305,16 +316,7 @@ export const ToFirebase = (state) => {
             return state
         }
     } else {
-        return [{
-                ...state,
-                status: "connecting"
-            },
-            firebase.Connect({
-                action: Connected,
-                config: fbConfig,
-                name: state.appname
-            })
-        ]
+        return Connect
     }
 }
 
