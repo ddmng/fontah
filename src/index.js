@@ -11,7 +11,8 @@ import {
     ToFirebase,
     Reset,
     FromFirebase,
-    GetToken
+    GetToken,
+    CopyLink
 } from './actions'
 import {
     TokenEffect
@@ -57,8 +58,10 @@ app({
                     bg-color {state.containerStyle["background-color"]}
                 </p>
                 <div class="star">
+                    <a class="" onClick={CopyLink}>Share it!</a>
                     <a class="github-button" href="https://github.com/ddmng/fontah" data-size="large" data-show-count="true" aria-label="Star ddmng/fontah on GitHub">Star</a>            
                 </div>
+                <input id="loc" readonly value={window.location}></input>
             </div>
         </div>
     ,

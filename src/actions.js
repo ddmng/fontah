@@ -338,3 +338,14 @@ export const GetToken = (state, {token}) => [{
         token
     }), // generates a unique ID on start
 ]
+
+const LinkCopied = (state) => ({
+    ...state
+})
+
+export const CopyLink = (state) => [
+    state,
+    fx.CopyLink({
+        action: LinkCopied,
+    })
+]

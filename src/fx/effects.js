@@ -65,3 +65,15 @@ export const TokenEffect = (props) => ({
     effect: readParams,
     action: props.action
 })
+
+const copyLink = (props, dispatch) => {
+    console.log("Copying link")
+    document.getElementById("loc").select()
+    document.execCommand('copy');
+    dispatch(props.action)
+}
+
+export const CopyLink = (props) => ({
+    effect: copyLink,
+    action: props.action
+})
