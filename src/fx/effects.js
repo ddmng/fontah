@@ -33,10 +33,7 @@ const loadFont = ({
 
 export const LoadFontEffect = (props) => ({
     effect: loadFont,
-    action: props.action,
-    error: props.error,
-    font: props.font,
-    index: props.index
+    ...props
 })
 
 const uniqId = (props, dispatch) => {
@@ -53,9 +50,7 @@ const uniqId = (props, dispatch) => {
 
 export const UniqIdEffect = (props) => ({
     effect: uniqId,
-    action: props.action,
-    params: props.params,
-    token: props.token
+    ...props
 })
 
 
@@ -68,7 +63,7 @@ const readParams = (props, dispatch) => {
 
 export const TokenEffect = (props) => ({
     effect: readParams,
-    action: props.action
+    ...props
 })
 
 const copyLink = (props, dispatch) => {
@@ -89,5 +84,5 @@ const copyLink = (props, dispatch) => {
 
 export const CopyLink = (props) => ({
     effect: copyLink,
-    action: props.action
+    ...props
 })

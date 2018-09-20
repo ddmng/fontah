@@ -22,13 +22,8 @@ const saveData = (props, dispatch) => {
 }
 
 export const SaveData = (props) => ({
-    action: props.action,
     effect: saveData,
-    data: props.data,
-    key: props.key,
-    collection: props.collection,
-    database: props.database,
-    savedAt: props.savedAt
+    ...props
 })
 
 
@@ -49,10 +44,9 @@ const connect = (props, dispatch) => {
 }
 
 export const Connect = (props) => ({
-    action: props.action,
     effect: connect,
-    config: props.config,
-    name: props.name || "[DEFAULT]"
+    name: props.name || "[DEFAULT]",
+    ...props
 })
 
 
@@ -76,9 +70,6 @@ const syncData = (props, dispatch) =>
 
 
 export const SyncData = (props) => ({
-    actions: props.actions,
     effect: syncData,
-    key: props.key,
-    collection: props.collection,
-    database: props.database,
+    ...props
 })
