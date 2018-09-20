@@ -4,8 +4,8 @@ import {
 import * as fx from '../fx/effects'
 import {MergeGoogleFontsList} from './fonts'
 import {Connected} from './backend'
-import {randomFont} from './fonts'
-import {randomColor} from './colors'
+import {RandomFont} from './fonts'
+import {RandomColor} from './colors'
 
 
 // ----------------------------------------------------
@@ -94,9 +94,10 @@ export const AllRandom = (state) => [
         status: "lucky_man"
     }),
     BatchFx(
-        randomColor('bg'),
-        randomColor('fg'),
-        randomFont(state.googleFontsList.items.length - 1),
+        // TODO is this acceptable instead of calling the effect repeating all the args again?
+        RandomColor(state, {bgfg: 'fg'})[1],
+        RandomColor(state, {bgfg: 'bg'})[1],
+        RandomFont(state)[1],
     )
 ]
 
