@@ -1,4 +1,4 @@
-export const int2Color = (color) => `${Math.trunc(color).toString(16)}`
+export const int2Color = (color) => color>=256*256*256?"ffffff":`${Math.trunc(color).toString(16)}`
 
 export const isIn = (s, a) => {
     if (a === null || a === undefined) {
@@ -13,4 +13,4 @@ export const isIn = (s, a) => {
 }
 
 export const buttonsDisabled = (state) =>
-    isIn(state.status, ["saving_state", "loading_font"]) || isIn(state.firebase, ["not_connected"])
+    isIn(state.status, ["saving_state", "loading_font"]) 
