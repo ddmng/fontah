@@ -50,7 +50,7 @@ export const SetChanged = (state) => ({
     ...state,
     status: "changed",
     error: "",
-    lastChange: new Date()
+    lastChange: new Date() // TODO: this should be a side effect!
 })
 
 
@@ -59,7 +59,7 @@ export const initialState = MergeGoogleFontsList(blankState)
 export const Reset = (state) => SetChanged(Connected({
     ...initialState,
     uniqid: state.uniqid,
-    lastChange: new Date()
+    lastChange: new Date()  // TODO: this should be a side effect!
 }))
 
 export const UpdateText = (state, {
