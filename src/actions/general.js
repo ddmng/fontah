@@ -1,5 +1,5 @@
 import {
-    BatchFx,
+    BatchFx, Time
 } from '../../local_modules/hyperapp-fx/src'
 import * as fx from '../fx/effects'
 import {MergeGoogleFontsList} from './fonts'
@@ -46,21 +46,28 @@ const blankState = {
 // ----------------------------------------------------
 
 
-export const SetChanged = (state) => ({
+const SetLastChange = (state, lastChange) => ({
     ...state,
-    status: "changed",
-    error: "",
-    lastChange: new Date() // TODO: this should be a side effect!
+    lastChange
 })
+
+export const SetChanged = (state) => [{
+        ...state,
+        status: "changed",
+        error: "",
+    },
+    Time({now: true, asDate: true, action: SetLastChange})
+]
 
 
 export const initialState = MergeGoogleFontsList(blankState)
 
-export const Reset = (state) => SetChanged(Connected({
+export const Reset = (state) => 
+    SetChanged(Connected({
     ...initialState,
     uniqid: state.uniqid,
-    lastChange: new Date()  // TODO: this should be a side effect!
-}))
+    }))
+
 
 export const UpdateText = (state, {
     target
@@ -92,12 +99,13 @@ export const AllRandom = (state) => [
     SetChanged({
         ...state,
         status: "lucky_man"
-    }),
+    })[0],
     BatchFx(
         // TODO is this acceptable instead of calling the effect repeating all the args again?
         RandomColor(state, {bgfg: 'fg'})[1],
         RandomColor(state, {bgfg: 'bg'})[1],
         RandomFont(state)[1],
+        SetChanged(state)[1]
     )
 ]
 
