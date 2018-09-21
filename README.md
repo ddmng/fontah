@@ -6,6 +6,7 @@ Just:
 * enter the text
 * use the buttons in the header to change colors, size and typeface
 * copy font and color params from the footer
+* send the link and share changes in realtime
 
 Supported fonts sources:
 * [x] Google Fonts (downloaded locally to avoid sharing API-KEY)
@@ -24,9 +25,9 @@ Here are some idea on how to improve the project:
 * [x] mobile-friendly (more or less)
 * [x] share your work (url) and collaborate with a unique link (Firebase backed)
 * [ ] notify page viewers
-* [ ] Work without firebase backend in case ov quota expiration
-* [ ] error management on effects (starting from firebase quota exceeded)
-* [ ] tune firebase settings
+* [x] Work without firebase backend in case of quota expiration -- Let's see if it works
+* [x] error management on effects (firebase quota, font load failure) -- Let's see if it works
+* [ ] tune firestore settings
 * [ ] upvote combination
 * [ ] bookmarks, w/ local storage persistence
 * [ ] combinations history
@@ -43,6 +44,8 @@ cd fontah/
 ```
 
 File `src/fbconfig.js` contains the Firebase API key, in order to save the application state. You can find yours in your [Firebase console](https://console.firebase.google.com/).
+
+If you can't setup Firebase, use the `nobackend` tag that does not have the "share" feature.
 
 Build it:
 ```sh
