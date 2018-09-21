@@ -1,4 +1,5 @@
 @import 'normalize';
+@import 'copylink';
 
 // TODO: improve mobile
 $mobile-width: 640px;
@@ -7,6 +8,7 @@ html {
     height: 100%;
     width: 100%;
 }
+
 body {
     font-family: 'Headland One', serif;
     height: 100%;
@@ -34,10 +36,12 @@ body {
     font-weight: 800;
     font-size: 1.1em;
     cursor: pointer;
+
     &:disabled {
         background: gray;
     }
-    &.half{
+
+    &.half {
         height: 30px;
         margin: 0px;
         border: 0px solid white;
@@ -88,14 +92,30 @@ body {
 }
 
 @keyframes textchange {
-    0% {font-size: 100px; opacity:1;}
-    100% {font-size: 50px;opacity:1;}
+    0% {
+        font-size: 100px;
+        opacity: 1;
+    }
+
+    100% {
+        font-size: 50px;
+        opacity: 1;
+    }
 }
 
 .title {
     font-size: 50px;
     margin: 10px;
     text-shadow: 1px 1px gray;
+}
+
+.errormsg {
+    font-size: 12px;
+    margin: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    &.hidden {
+        visibility: hidden;
+    }
 }
 
 @media only screen and (max-width: $mobile-width) {
@@ -117,6 +137,7 @@ body {
 }
 
 .footer {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 10px;
     display: flex;
     flex-direction: row;
@@ -133,6 +154,7 @@ body {
         margin: 5px;
         font-size: .5em;
     }
+
     .star {
         margin: 5px;
     }

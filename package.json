@@ -3,19 +3,27 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
+  "homepage": "http://github.com/ddmng/fontah",
   "scripts": {
     "start": "$(npm bin)/parcel index.html",
     "build": "npm install && git submodule init && git submodule update && cd local_modules/hyperapp && git checkout V2 && cd ../hyperapp-fx && git checkout HAv2 && cd ../../ && $(npm bin)/parcel build index.html",
-    "clean": "rm -rf dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist"
   },
-  "author": "",
+  "author": {
+    "name": "ddmng",
+    "url": "http://github.com/ddmng/"
+  },
   "license": "ISC",
   "dependencies": {
-    "assemble": "~0.3.11",
-    "babel-preset-react": "^6.24.1",
-    "grunt": "~0.4.0",
-    "styles": "^0.2.1"
+    "firebase": "^5.5.0",
+    "uniqid": "^5.0.3"
+  },
+  "bugs": {
+    "url": "http://github.com/ddmng/fontah/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ddmng/fontah.git"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
